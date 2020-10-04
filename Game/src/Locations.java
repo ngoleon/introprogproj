@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Locations {
 
@@ -8,15 +9,15 @@ public class Locations {
     public Locations(String locationName) {
         this.locationName = locationName;
     }
-    ArrayList<Locations> locationsArrayList = new ArrayList<Locations>(); //array for enemy mobs
     ArrayList<Enemy> enemyArrayList = new ArrayList<Enemy>(); //array for enemy mobs
 
-    public Enemy getEnemy(int index) {
-        return enemyArrayList.get(index);
-    }
-
-    public Locations getLocations(int index) {
-        return locationsArrayList.get(index);
+    public Enemy getEnemy() {
+        if(enemyArrayList.size() > 0) {
+            int rand = new Random().nextInt(enemyArrayList.size());
+            return enemyArrayList.get(rand);
+        } else {
+            return null;
+        }
     }
 
     public String getEnemyName(int index) { //retrieves enemy name from array list
@@ -27,9 +28,6 @@ public class Locations {
         enemyArrayList.add(enemyObject);
     }
 
-    public void addLocation(Locations locationObject) { //adds enemy object to arraylist from enemy class
-        locationsArrayList.add(locationObject);
-    }
     public int numEnemy() { //retrieves number of enemies in the arraylist
         return enemyArrayList.size();
     }
