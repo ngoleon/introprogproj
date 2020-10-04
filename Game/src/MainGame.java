@@ -26,20 +26,22 @@ public class MainGame {
         Player mainChar = new Player(name, 1000, 10,5);
 
         //mob creation
-        Enemy mob = new Enemy("mobOne", 100, 100, 10); //makes mobOne enemy object
-        Locations locations = new Locations("Start"); //creates a new naming location object
+        Enemy mob;
+        Locations locations;
+        mob = new Enemy("mobOne", 100, 100, 10); //makes mobOne enemy object
+        locations = new Locations("Start"); //creates a new naming location object
         locations.addEnemy(mob); //adds enemy object to array in location class
         grid.setGridNames(2,2, locations);//adds location to 2d grid array
 
-        Enemy mobTwo = new Enemy("mobTwo", 100,1000,10);
-        Locations two = new Locations("Second");
-        grid.setGridNames(2,1, two);
-        two.addEnemy(mobTwo);
+        mob = new Enemy("mobTwo", 100,1000,10);
+        locations = new Locations("Second");
+        grid.setGridNames(2,1, locations);
+        locations.addEnemy(mob);
 
-        Enemy mobThree = new Enemy("mobThree", 1,1,10);
-        Locations three = new Locations("Under Start");
-        grid.setGridNames(2,3, three);
-        three.addEnemy(mobThree);
+        mob = new Enemy("mobThree", 1,1,10);
+        locations = new Locations("Under Start");
+        grid.setGridNames(2,3, locations);
+        locations.addEnemy(mob);
 
 //        System.out.println(locations.numEnemy());
 //        System.out.println(locations.getLocationName());
@@ -71,17 +73,17 @@ public class MainGame {
             if((grid.getGridName(grid.getX(), grid.getY()).getLocationName()).equals("Second")) { //encounters enemy at location "second" via player x and y coordinates
                 System.out.println("You have encountered: " + grid.getGridName(grid.getX(), grid.getY()).getEnemyName(0)); // shows encounter message of what mob via player x and y coordinates
 
-                while(two.getEnemy(0).getHp() > 0) { // loop to ensure player stays in battle with enemy
-                    System.out.println("Enemy Name: " + two.getEnemyName(0));
-                    System.out.println("Enemy HP: " + two.getEnemy(0).getHp()); // prints enemy hp
+                while(grid.getGridName(grid.getX(), grid.getY()).getEnemy(0).getHp() > 0) { // loop to ensure player stays in battle with enemy
+                    System.out.println("Enemy Name: " + locations.getEnemyName(0));
+                    System.out.println("Enemy HP: " + locations.getEnemy(0).getHp()); // prints enemy hp
                     System.out.println("Your HP: " + mainChar.getHp()); // prints player hp
                     System.out.println("\n What would you like to do? \n attack \n strong attack \n defend \n"); // menu selection
                     String mobOne = input.nextLine(); // menu selection
 
-                    int twoAtk = two.getEnemy(0).getAtk(); //attack variable for mobTwo
+                    int twoAtk = locations.getEnemy(0).getAtk(); //attack variable for mobTwo
                     switch (mobOne) {
                         case "attack" -> {
-                            two.getEnemy(0).takeDamage(playerAtk);// does damage = to player attack to enemy
+                            locations.getEnemy(0).takeDamage(playerAtk);// does damage = to player attack to enemy
                             System.out.println("You hit the enemy for " + (playerAtk) + " damage!");
                             input.nextLine();
                             mainChar.takeDamage(twoAtk - playerDef);// takes damage = to mob attack to player - defence
@@ -90,7 +92,7 @@ public class MainGame {
                         }
                         case "strong attack" -> {
                             int strongAttack = (int)(Math.random()*(2-1+1)+1);
-                            two.getEnemy(0).takeDamage((playerAtk * strongAttack)); // 50% chance of doing double damage
+                            locations.getEnemy(0).takeDamage((playerAtk * strongAttack)); // 50% chance of doing double damage
                             if (strongAttack == 2) {
                                 System.out.println("Critical Strike!");
                             }
@@ -106,7 +108,7 @@ public class MainGame {
                             input.nextLine();
                         }
                     }
-                    if(two.getEnemy(0).getHp() <= 0) {
+                    if(locations.getEnemy(0).getHp() <= 0) {
                         System.out.println("Congratulations on killing mobOne! \n You have now obtained: " + itemOne.getItemName());
                         mainChar.addItem(itemOne);
                         System.out.println(pause());
