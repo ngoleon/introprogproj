@@ -1,24 +1,44 @@
+import java.util.ArrayList;
+
 public class Player {
 
-    private String name;
     private int hp;
     private int maxHp;
     private int atk;
     private int def;
-
     private int numPotions;
+    private int x;
+    private int y;
 
-    public Player(String name, int hp, int atk) {
-        this.name = name;
+//Inventory System
+    ArrayList<Itemcreate> inventory=new ArrayList<Itemcreate>();
+
+    //Setter
+    public void addItem(Itemcreate itemName) { //method to add created item to arraylist
+        inventory.add(itemName);
+    }
+
+    public void removeItem(int index) {
+        inventory.remove(index);
+    }
+    //Getter
+    public String getItem(int index) { //method to return item name at index number in arraylist
+        return inventory.get(index).getItemName();
+    }
+
+    public int getSize() {
+        return inventory.size();
+    }
+
+
+//Player Creation
+    public Player(String name, int hp, int atk, int def) {
         this.hp = hp;
         this.atk = atk;
+        this.def = def;
     }
 
-
-    // Getters
-    public String getName() {
-        return name;
-    }
+    // Getters Values
 
     public int getHp() {
         return hp;
@@ -36,10 +56,11 @@ public class Player {
         return hp > 0;
     }
 
-    // Stats Getters
-    public String getNameStat() {
-        return "Name: " + getName();
+    public boolean isDead() {
+        return hp <= 0;
     }
+
+    // Stats Getters
 
     public String getHpStat() {
         return "Health: " + getHp();
@@ -49,7 +70,7 @@ public class Player {
         return "Attack: " + getAtk();
     }
 
-    // Setters
+    // Setters Stats
     public void setHp(int setHp) {
         hp = setHp;
     }
@@ -66,10 +87,19 @@ public class Player {
         maxHp = setMaxHp;
     }
 
+    public void killPlayer() {
+        hp = 0;
+    }
+
+    public void takeDamage(int damage) {
+        hp = hp - damage;
+    }
     public void heal() {
         if (numPotions > 0) {
             numPotions--;
             hp = maxHp;
         }
     }
+
+    //Location
 }
