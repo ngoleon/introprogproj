@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.lang.Math;
 import java.util.concurrent.TimeUnit;
 
+// todo make sure location coordinates x and y are not inverted
+
 public class MainGame {
 
     static String textPrint() {
@@ -10,6 +12,15 @@ public class MainGame {
 
     }
 
+    static void locationCreate(String locationName, int x, int y, Grid grid) { //method to create locations by setting parameters,
+        Locations locations = new Locations(locationName); //constructs a location object
+        grid.setGridNames(x, y, locations); //stores location object in 2d grid array at x and y coordinates
+    }
+
+    static void mobCreate(String name, int hp, int maxHp, int atk, int x, int y, Grid grid) { //method to create mobs by setting parameters
+        Enemy mob = new Enemy(name, hp, maxHp, atk);
+        grid.getGridName(x,y).addEnemy(mob);
+    }
 
     static String pause() {
         return "\n Press enter to continue";
@@ -26,28 +37,29 @@ public class MainGame {
         Player mainChar = new Player(name, 1000, 10,5);
 
         //mob creation
-        Enemy mob;
-        Locations locations;
-        locations = new Locations("Start"); //creates a new naming location object
 
-        mob = new Enemy("mobOne", 100, 100, 10); //makes mobOne enemy object
-        locations.addEnemy(mob); //adds enemy object to array in location class
-        mob = new Enemy("mobTwoStarter",1,1,1);
-        locations.addEnemy(mob);
+        locationCreate("Start", 2,2, grid);
+        mobCreate("jeff",1,1,1,2, 2, grid);
 
-        grid.setGridNames(2,2, locations);//adds location to 2d grid array
+//        locations = new Locations("Start"); //creates a new naming location object
+//        mob = new Enemy("mobOne", 100, 100, 10); //makes mobOne enemy object
+//        locations.addEnemy(mob); //adds enemy object to array in location class
+//        mob = new Enemy("mobTwoStarter",1,1,1);
+//        locations.addEnemy(mob);
+//
+//        grid.setGridNames(2,2, locations);//adds location to 2d grid array
 
 //        mob = new Enemy("mobTwo", 100,1000,10);
-        locations = new Locations("Second");
+//        locations = new Locations("Second");
 //        locations.addEnemy(mob);
-        grid.setGridNames(2,1, locations);
-
-
-        mob = new Enemy("mobThree", 1,1,10);
-        locations = new Locations("Under Start");
-        locations.addEnemy(mob);
-        grid.setGridNames(2,3, locations);
-
+//        grid.setGridNames(2,1, locations);
+//
+//
+//        mob = new Enemy("mobThree", 1,1,10);
+//        locations = new Locations("Under Start");
+//        locations.addEnemy(mob);
+//        grid.setGridNames(2,3, locations);
+//
 
 
 
@@ -94,17 +106,17 @@ public class MainGame {
                     System.out.println("Enemy Name: " + opponent.getName());
                     System.out.println("Enemy HP: " + opponent.getHp()); // prints enemy hp
                     System.out.println("Your HP: " + mainChar.getHp()); // prints player hp
-                    System.out.println("\n What would you like to do? \n attack \n strong attack \n defend \n"); // menu selection
-                    String mobOne = input.nextLine(); // menu selection
+                    System.out.println("\n What would you like to do? \n Attack \n Strong Attack \n Defend \n"); // menu selection
+                    String trigger = input.nextLine().toLowerCase(); // menu selection
 
-                    int twoAtk = opponent.getAtk(); //attack variable for mobTwo
-                    switch (mobOne) {
+                    int enemyAtk = opponent.getAtk(); //attack variable for mobTwo
+                    switch (trigger) {
                         case "attack" -> {
                             opponent.takeDamage(playerAtk);// does damage = to player attack to enemy
                             System.out.println("You hit the enemy for " + (playerAtk) + " damage!");
                             TimeUnit.SECONDS.sleep(1);
-                            mainChar.takeDamage(twoAtk - playerDef);// takes damage = to mob attack to player - defence
-                            System.out.println("You took " + (twoAtk - playerDef) + " damage!");
+                            mainChar.takeDamage(enemyAtk - playerDef);// takes damage = to mob attack to player - defence
+                            System.out.println("You took " + (enemyAtk - playerDef) + " damage!");
                             input.nextLine();
                         }
                         case "strong attack" -> {
@@ -115,18 +127,18 @@ public class MainGame {
                             }
                             System.out.println("You swing and hit the enemy for " + (playerAtk * strongAttack) + " damage!");
                             TimeUnit.SECONDS.sleep(1);
-                            mainChar.takeDamage(twoAtk + (playerDef / 2)); // lose half defensive stats when strong attacking
-                            System.out.println("You risky attack dropped your defences! You took " + (twoAtk + (playerDef / 2)) + " damage!");
+                            mainChar.takeDamage(enemyAtk + (playerDef / 2)); // lose half defensive stats when strong attacking
+                            System.out.println("You risky attack dropped your defences! You took " + (enemyAtk + (playerDef / 2)) + " damage!");
                             input.nextLine();
                         }
                         case "defend" -> {
-                            mainChar.takeDamage(twoAtk - (playerDef * 2));
-                            System.out.println("You steel your defences against the enemy. You took " + (twoAtk - playerDef) + " damage!");
+                            mainChar.takeDamage(enemyAtk - (playerDef * 2));
+                            System.out.println("You steel your defences against the enemy. You took " + (enemyAtk - playerDef) + " damage!");
                             input.nextLine();
                         }
                     }
-                    if(locations.getEnemy().getHp() <= 0) {
-                        System.out.println("Congratulations on killing mobOne! \n You have now obtained: " + itemOne.getItemName());
+                    if(opponent.getHp() <= 0) {
+                        System.out.println("Congratulations on killing " + opponent.getName() + " \n You have now obtained: " + itemOne.getItemName());
                         mainChar.addItem(itemOne);
                         System.out.println(pause());
                         input.nextLine();
