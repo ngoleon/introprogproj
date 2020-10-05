@@ -25,6 +25,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="MainGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -60,22 +61,26 @@
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="850" y="279" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601653331068" />
-    <state width="2005" height="305" key="GridCell.Tab.0.bottom" timestamp="1601828423945">
+    <state width="2005" height="305" key="GridCell.Tab.0.bottom" timestamp="1601875068603">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="305" key="GridCell.Tab.0.bottom/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601828423945" />
-    <state width="2005" height="305" key="GridCell.Tab.0.center" timestamp="1601828423945">
+    <state width="2005" height="305" key="GridCell.Tab.0.bottom/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601875068603" />
+    <state width="2005" height="305" key="GridCell.Tab.0.center" timestamp="1601875068603">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="305" key="GridCell.Tab.0.center/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601828423945" />
-    <state width="2005" height="305" key="GridCell.Tab.0.left" timestamp="1601828423945">
+    <state width="2005" height="305" key="GridCell.Tab.0.center/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601875068603" />
+    <state width="2005" height="305" key="GridCell.Tab.0.left" timestamp="1601875068603">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="305" key="GridCell.Tab.0.left/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601828423945" />
-    <state width="2005" height="305" key="GridCell.Tab.0.right" timestamp="1601828423945">
+    <state width="2005" height="305" key="GridCell.Tab.0.left/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601875068603" />
+    <state width="2005" height="305" key="GridCell.Tab.0.right" timestamp="1601875068603">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="305" key="GridCell.Tab.0.right/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601828423945" />
+    <state width="2005" height="305" key="GridCell.Tab.0.right/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601875068603" />
+    <state x="501" y="174" key="SettingsEditor" timestamp="1601893320084">
+      <screen x="0" y="0" width="2048" height="1112" />
+    </state>
+    <state x="501" y="174" key="SettingsEditor/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1601893320084" />
     <state x="725" y="314" key="refactoring.ChangeSignatureDialog" timestamp="1601778297054">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
