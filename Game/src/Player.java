@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Player {
 
+    private String name;
     private int hp;
     private int maxHp;
     private int atk;
@@ -10,8 +11,8 @@ public class Player {
     private int x;
     private int y;
 
-//Inventory System
-    ArrayList<Itemcreate> inventory=new ArrayList<Itemcreate>();
+    //Inventory System
+    ArrayList<Itemcreate> inventory = new ArrayList<Itemcreate>();
 
     //Setter
     public void addItem(Itemcreate itemName) { //method to add created item to arraylist
@@ -21,19 +22,44 @@ public class Player {
     public void removeItem(int index) {
         inventory.remove(index);
     }
+
     //Getter
     public String getItem(int index) { //method to return item name at index number in arraylist
         return inventory.get(index).getItemName();
+    }
+
+    public String getDesc(int index) { //method to return item name at index number in arraylist
+        return inventory.get(index).getItemDesc();
     }
 
     public int getSize() {
         return inventory.size();
     }
 
+    public boolean containsItem(String name) {
+        for (int i = 0; i < inventory.size(); i++) {
+            String itemName = inventory.get(i).getItemName();
+            if (itemName.equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getJava(String name) {
+        for (int i = 0; i < inventory.size(); i++) {
+            String itemName = inventory.get(i).getItemName();
+            if (itemName.equals(name)) {
+                return i;
+            }
+        }
+        return 0;
+    }
 
 //Player Creation
-    public Player(String name, int hp, int atk, int def) {
+    public Player(String name, int hp, int maxHp, int atk, int def) {
         this.hp = hp;
+        this.maxHp = maxHp;
         this.atk = atk;
         this.def = def;
     }
@@ -43,6 +69,8 @@ public class Player {
     public int getHp() {
         return hp;
     }
+
+    public int getMaxHp() {return maxHp;}
 
     public int getAtk() {
         return atk;

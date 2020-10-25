@@ -20,6 +20,9 @@ public class Locations {
         }
     }
 
+    public Enemy getEnemyNumber(int number) {
+        return enemyArrayList.get(number);
+    }
     public String getEnemyName(int index) { //retrieves enemy name from array list
         return enemyArrayList.get(index).getName();
     }
