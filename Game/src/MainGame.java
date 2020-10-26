@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 // todo make sure to include alternate ending, eg no javaman fight
 // todo make sure to have option to pick up item
 // todo make sure to create algorithms
+// todo make sure to create npc
 
 public class MainGame {
 
@@ -75,19 +76,29 @@ public class MainGame {
         locationCreate("Wild West - Entrance", 4,3, grid);
         locationCreate("Wild West - Saloon", 4,4, grid);
 
-        mobCreate("FK BOSS", "intro", "outro",10,100,100,1, 0, grid);
-        mobCreate("Neil Legstrong",controlRoomIntro(), controlRoomOutro(),10,100,100,1, 4, grid);
+        mobCreate("Prancealot", forestIntro(), forestOutro(),10,100,100,0, 0, grid);
+        mobCreate("Barathrum", fantasyIntro(), fantasyOutro(),10,100,100,1, 0, grid);
+
         mobCreate("Fuzz Aldrin",cargoHoldIntro(), cargoHoldOutro(),10,100,100,0, 4, grid);
-        mobCreate("Mild Bill",mildBillIntro(), mildBillOutro(),10,100,100,3, 4, grid);
+        mobCreate("Neil Legstrong",controlRoomIntro(), controlRoomOutro(),10,100,100,1, 4, grid);
+
         mobCreate("Billy The Skid",saloonIntro(), saloonOutro(),10,100,100,4, 4, grid);
-        mobCreate("REMIX BOSS","intro", "outro",10,100,100,3, 0, grid);
+        mobCreate("Mild Bill",mildBillIntro(), mildBillOutro(),10,100,100,3, 4, grid);
+
+        mobCreate("Xenodwarf",nestIntro(), nestOutro(),10,100,100,4, 0, grid);
+        mobCreate("Cyber Bill 3000",remixIntro(), remixOutro(),10,100,100,3, 0, grid);
+
 
         itemCreate("JA", "First Piece", 1,0,0, grid);
         itemCreate("VA", "Second Piece",1,4,0, grid);
         itemCreate("MA", "Third Piece",3,4,0, grid);
         itemCreate("N!", "Fourth Piece",3,0,0, grid);
+
         itemCreate("Bounty", "WANTED - Mild Bill (last seen in Mineshaft)",4,4,0, grid);
         itemCreate("ID Card", "Just an ID card",0,4,0, grid);
+        itemCreate("Cylinder", "Cylinder",4,0,0, grid);
+        itemCreate("Silver Sword", "A silver sword", 0,0,0, grid);
+
 //        itemCreate("Really Big Sword 2", 2,0,0, grid);
 //        itemCreate("Really Big Sword 3", 2,0,0, grid);
 //        locations = new Locations("Start"); //creates a new naming location object
@@ -142,23 +153,16 @@ public class MainGame {
             if (grid.checkXY(0,2)) {
                 System.out.println("\n You have reached the end of the corridor. " +
                         "To the north is the door to the kitchen and to the south is the door to the bedrooms.\n");
-            }
-
-            if (grid.checkXY(4,2)) {
+            }else if (grid.checkXY(4,2)) {
                 System.out.println("\n You have reached the end of the corridor. " +
                         "To the north is the door to the bathroom and to the south is the door to the lounge room.\n");
-            }
-
-            if (grid.checkXY(2,1) || grid.checkXY(2,3) || grid.checkXY(1,2) || grid.checkXY(3,2)) {
+            }else if (grid.checkXY(2,1) || grid.checkXY(2,3) || grid.checkXY(1,2) || grid.checkXY(3,2)) {
                 System.out.println("\n You step out into the corridor. There isn’t much going on. \n");
-            }
-
-            if (grid.checkXY(2,4)) {
+            }else if (grid.checkXY(2,4)) {
                 mainChar.setHp(mainChar.getMaxHp());
                 System.out.println("\n You reach the safe spot and call out “SAFE”. " +
                         "Knowing the world is just a little less dangerous fills you with the strength to move forward.\n" +
                         "\n You fully heal to: " + mainChar.getHp() + " HP \n");
-                System.out.println("\n");
             }
 
             boolean lock = true;
@@ -349,7 +353,7 @@ public class MainGame {
                 "on the floor. \n\n She gasps, \"It’s you!\" she exclaims pointing at the figure on the" +
                 " floor. You and your \n sibling exchange looks of confusion as Javaman seems to break \n" +
                 "down and disappear. \n\n Your mum looks at you both bewilderment in her eyes, \"Why " +
-                "did you let him \nout?!\" \n";
+                "did you let him \nout?!\"";
     }
 
     static String javamanEncounter() {
@@ -368,7 +372,7 @@ public class MainGame {
                 "\n while, you walk over and hold the door open to free up her other hand so she can tie her shoes properly." +
                 "\n\n \"Sure mum\" you say smiling. She thanks you as she races out the door. You shut the door gently before " +
                 "\n turning around being greeted by your younger sibling." +
-                "\n\n \"Hey, you wanna play?\" you ask, leading her down the corridor. \n";
+                "\n\n \"Hey, you wanna play?\" you ask, leading her down the corridor.";
     }
 
     static String saloonIntro() {
@@ -422,7 +426,7 @@ public class MainGame {
                 "\n shot that now stands. You hear the voice gasp in shock as a hairy man slowly comes into view. \"Y-you’re" +
                 "\n  one of them\" he says \"This is useless on you\". He throws his gun off to the side and pulls into a " +
                 "\n weird fighting stance, even in zero gravity he looked completely at ease until he kicked off of a nearby" +
-                "\n  heavy object and hurtled at you. \n";
+                "\n  heavy object and hurtled at you.";
     }
 
     static String cargoHoldOutro() {
@@ -431,27 +435,25 @@ public class MainGame {
                 "\n You catch a glimpse of his ID card and take it from him while he’s knocked out. \n" +
                 "\n You pull your sister in close double checking to make sure she’s okay. \n" +
                 "\n You look around. To the north you saw the door you used to enter the cargo hold and to the east a " +
-                "\n sign marked Control Room. \n";
+                "\n sign marked Control Room.";
     }
 
     static String controlRoomIntro() {
-        return "You walk into the room, there are loose wires sparking everywhere with a giant console in the middle of " +
-                "\n the room and what looks like a giant tube at the back of the space sitting adjacent to the computer. " +
-                "\n You walk up and inspect the display it reads [Please verify peer authentication] with two card readers " +
-                "\n illuminated by a strip of lights. You look at the card that you took from the last room and realise it " +
-                "\n looks very similar to the other one you picked up. It’s worth a shot you figure as you slide both cards " +
-                "\n into the readers. The screen flashes green telling you it has been verified and you hear a hiss from " +
-                "\n behind you as the pod opens up. Inside is a shining letter ‘J’ that seems to shimmer in the dull space " +
-                "\n of the broken control room. You go over to take a look when you hear a shot whizz past your ear. You " +
-                "\n turn around to see a rather handsome man, golden hair perfectly styles and teeth so white he probably " +
-                "\n didn’t need a flashlight while getting around. \n" +
-                "\n \"Hand it over kid\" He warns, \"I know a fella who pays pretty good for that stuff\". You size him up, " +
-                "\n after the last two encounters you’ve had here you’re not even close to surprised, even a little tired " +
-                "\n of the repetition. You raise your hands in surrender when you see a small flicker of movement from the " +
-                "\n corner of your eye as your sister bursts out of hiding and winds up a punch very similar to the one you " +
-                "\n made in the cafeteria but, due to her stunning lack of height manages to land an incredibly clean hit " +
-                "\n to the stomach forcing him to drop his gun which she scampers away with. You see anger flare in his " +
-                "\n eyes and you immediately close the distance ready for another scrap. \n";
+        return "You walk into the room, there are loose wires sparking everywhere with a giant console in the middle of" +
+                "\n  the room and what looks like a giant tube at the back of the space sitting adjacent to the computer. " +
+                "\n You walk up and inspect the display it reads [Please verify peer authentication] with a card reader " +
+                "\n illuminated by a strip of lights. It’s worth a shot you figure as you slide the card into the reader. " +
+                "\n The screen flashes green telling you it has been verified and you hear a hiss from behind you as the " +
+                "\n pod opens up. Inside is a shining letter ‘J’ that seems to shimmer in the dull space of the broken " +
+                "\n control room. You go over to take a look when you hear a shot whizz past your ear. \n" +
+                "\n \"Hand it over kid\" He warns, \"I know a fella who pays pretty good for that stuff\". You size him " +
+                "\n up, after the last two encounters you’ve had here you’re not even close to surprised, even a little " +
+                "\n tired of the repetition. You raise your hands in surrender when you see a small flicker of movement " +
+                "\n from the corner of your eye as your sister bursts out of hiding and winds up a punch very similar to " +
+                "\n the one you made in the cafeteria but, due to her stunning lack of height manages to land an incredibly" +
+                "\n  clean hit to the stomach forcing him to drop his gun which she scampers away with.";
+
+
     }
 
     static String controlRoomOutro() {
@@ -459,5 +461,88 @@ public class MainGame {
                 "\n kind of over space adventures. You sister runs up and hugs you and you ruffle her hair a little and she " +
                 "\n presents you with the letter. You hold onto it as everything fades to the white.";
     }
+
+    static String nestIntro() {
+        return "You tread carefully through the field of eggs as smooth and dark as ebony, making sure you are very " +
+                "\n mindful of where you put your hands. That is until you feel something push you from behind and you " +
+                "\n stumble into a bunch of eggs. Eventually, you hear a crunch followed by a quiet \"uh oh\". You turn " +
+                "\n around and find your little sister standing in an egg.  Almost immediately a small figure rises, a " +
+                "\n gross oblong head and ribbed spiny physique but what really stood out was the featureless face, the " +
+                "\n rows upon rows of teeth and finally the wispy remains of a blood spattered beard. You look at it for " +
+                "\n a couple seconds before it strikes.";
     }
+
+    static String nestOutro() {
+        return "The battered husk of the creature lays curled up beneath you like a dead spider. You see something " +
+                "\n glimmer inside of it which you pull out anD inspect it, it looks like a smooth cylinder with a gem " +
+                "\n inlay in the middle of one of the cylinder’s bases.  It could be useful later you think to yourself. \n" +
+                "\n You look around, you see the path you took that leads down to the general area of the cantina to the " +
+                "\n south and a path off to the west that seems to lead up a mountain.";
+    }
+
+    static String remixIntro() {
+        return "You walk out into an empty plateau with sheers drop offs surrounding all sides. The wind sweeps over " +
+                "\n the surface kicking up dust. In the middle of the open space sits a pedestal with an indent in it, " +
+                "\n in the shape of a rectangle with a curved bottom.  \n" +
+                "\n \"Hey! That's the same shape as the items we picked up!\" your sister exclaims. You look it over and " +
+                "\n notice that she’s right. Not really knowing what else to do you insert it into the slot on the " +
+                "\n pedestal. The pedestal drops into the ground as the floor next to it opens up revealing the fourth " +
+                "\n letter, the letter ‘A’. Which rises slowly out of the ground glowing and shimmering. You reach out " +
+                "\n to grab it when a tinny voice calls out from behind you. \n" +
+                "\n \"Well well well, thank you for doing the work for me boy, especially with how our last meeting " +
+                "\n ended\". Frown, turning around to see Mild Bill. However, limbs seem to have been replaced with metal " +
+                "\n augments and wild magic glowing in his eye. \"Now, hand it over\" \n" +
+                "\n \"Mild Bill?\" your voice betraying your disbelief. \n" +
+                "\n \"Close, I’m Cyber_Bill_3000 now\" he declares before launching at you.";
+    }
+
+    static String remixOutro() {
+        return "Cyber bill slumps to the ground, eyes sputtering the mechanical limbs twitching twisted at odd angles " +
+                "\n as range limiters gave out. Your sister hands you the letter as the world fades to white.";
+    }
+
+    static String forestIntro() {
+        return "The forest before you chirps with life, a path is carved through the dense grass and trees, leading " +
+                "\n further into the wilderness. In front of you lies a bridge, guarded by a solitary knight in silver " +
+                "\n armor. The large knight approaches you on the opposite side of the bridge. \"Hold\" the steel knight " +
+                "\n bellowed \"State thy names...\" You apprehensively mumble your name \"*name* is it? What tragic " +
+                "\n irony...\" you shoot him a look, one eyebrow raised. \"Tragic as it’s the name the prophecies " +
+                "\n foretold shalt wield my family blade and slay the black dragon, Barathrum.\" he pauses for dramatic " +
+                "\n flare \"However I don’t hold myself to the whims of old faerie tales and I, Sir Prancealot, will slay " +
+                "\n the beast myself... if you wish to fulfill this foolish belief held only by naves and peasantry: Thy " +
+                "\n must pry my blade and my charge from my dead hands!\" he unsheathes his silver sword, its spine is " +
+                "\n engraved with ancient runes and its ornate gold hilt shines in the beams of light that pass through " +
+                "\n the canopy leaves. \"Let this be done, peasant.\"";
+    }
+
+    static String forestOutro() {
+        return "The knight slumps to one knee, with a single hand grasped to his sword. \"You have bested me, now " +
+                "\n finish your job.\" you push him onto his back and pry the sword from his hands. \"What are you doing?" +
+                "\n  Finish me!\" he protests \"release my blade thief, I said you could have it after I die!\" you look " +
+                "\n down at him and ask \"what are you gonna do about it down there? Grasp onto my ankles?\". You walk " +
+                "\n back across the bridge and leave the knight to his fate. Before you lies an opening to a forest to " +
+                "\n your right and a mountain towering beyond it.";
+    }
+
+    static String fantasyIntro() {
+        return "You approach the base of the dark mountain and spot a small cave, inside it is an ancient elven door " +
+                "\n that you assume leads inward. You pull out the elves key and move to place it in the door. The key " +
+                "\n slips in perfectly as you twist, the door moves backwards then slides to the right. Before you lies " +
+                "\n what could be an infinitely dark tunnel until small, blue flames appear in dark metallic braziers " +
+                "\n that progressively lead you down towards the abyss. Suddenly the cave comes to a large opening, light " +
+                "\n fills the room through cracks in the surface of the mountain and reflects off of the purple speckled " +
+                "\n black scales of a great dragon. You make your way down to its nest, lined with gold and silver jewels. " +
+                "\n The dragon awakens and spreads its massive wings, it bellows \"WHO COMETH?\" you step forward and " +
+                "\n respond \"*player name*!\" the dragon's head raises and it blasts \"THEN MEET YOUR DOOM!\".";
+    }
+
+    static String fantasyOutro() {
+        return "The dragon screeches its death cry and falls, unleashing a final blast of air that made the assorted " +
+                "\n gold and silver around it rattle violently. A single scale falls off of the abyssal dragon, your " +
+                "\n sister picks it up and shows it to you \"Looks like the letter ‘A’, right?\" You nod in agreement " +
+                "\n and the world around you fades to white.";
+    }
+    }
+
+
 
