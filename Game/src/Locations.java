@@ -4,10 +4,12 @@ import java.util.Random;
 public class Locations {
 
     public String locationName;
+    public String locationDesc;
 
     //constructor
-    public Locations(String locationName) {
+    public Locations(String locationName, String locationDesc) {
         this.locationName = locationName;
+        this.locationDesc = locationDesc;
     }
     ArrayList<Enemy> enemyArrayList = new ArrayList<Enemy>(); //array for enemy mobs
 
@@ -20,6 +22,9 @@ public class Locations {
         }
     }
 
+    public boolean checkEnemyAlive(int index) {
+        return enemyArrayList.get(index).isAlive();
+    }
     public Enemy getEnemyNumber(int number) {
         return enemyArrayList.get(number);
     }
@@ -38,5 +43,9 @@ public class Locations {
     //getter
     public String getLocationName() { //retrieves location name
         return locationName;
+    }
+
+    public String getLocationDesc() { //retrieves location name
+        return locationDesc;
     }
 }

@@ -2,39 +2,32 @@ import java.util.Scanner;
 import java.lang.Math;
 import java.util.concurrent.TimeUnit;
 
-// todo make sure to include alternate ending, eg no javaman fight
-// todo make sure to have option to pick up item
+
 // todo make sure to create algorithms
-// todo make sure to create npc
+// todo comment everything
 
 public class MainGame {
 
-    static String textPrint() {
-       return "this is what i really wanted to test out anyways to see if this would work \n " +
-               "and this is the second line of the entire thing";
-    }
-
-    static void locationCreate(String locationName, int x, int y, Grid grid) { //method to create locations by setting parameters,
-        Locations locations = new Locations(locationName); //constructs a location object
+    static void locationCreate(String locationName, String locationDesc, int x, int y, Grid grid) { //method to create locations by setting parameters,
+        Locations locations = new Locations(locationName, locationDesc); //constructs a location object
         grid.setGridNames(x, y, locations); //stores location object in 2d grid array at x and y coordinates
     }
 
     static void mobCreate(String name, String intro, String outro, int hp, int maxHp, int atk, int x, int y, Grid grid) { //method to create mobs by setting parameters
         Enemy mob = new Enemy(name, intro, outro, hp, maxHp, atk);
-        grid.getGridName(x,y).addEnemy(mob);
+        grid.getGridName(x, y).addEnemy(mob);
     }
 
     static void itemCreate(String name, String desc, int x, int y, int enemyNum, Grid grid) {
-        Itemcreate item = new Itemcreate (name, desc);
-        grid.getGridName(x,y).getEnemyNumber(enemyNum).addItem(item);
+        Itemcreate item = new Itemcreate(name, desc);
+        grid.getGridName(x, y).getEnemyNumber(enemyNum).addItem(item);
     }
 
     static String pause() {
         return "\n Press enter to continue";
     }
 
-
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException {
         //initialisation and variables
         Scanner input = new Scanner(System.in);
         Grid grid = new Grid(2, 2); //creates an instance of the Grid class, sets starting location
@@ -43,62 +36,82 @@ public class MainGame {
         System.out.println("What is your name: ");
         String name = input.nextLine();
         System.out.println();
-        Player mainChar = new Player(name,1000,100,10,10);
+        Player mainChar = new Player(name, 1000, 100, 10, 10);
+        System.out.println("What is your sibling's name: ");
+        String siblingName = input.nextLine();
+        System.out.println();
+        Sibling sibling = new Sibling(siblingName);
 
         TimeUnit.MILLISECONDS.sleep(500);
         System.out.println(intro() + "\n" + pause());
         input.nextLine();
         //mob creation
-
-        locationCreate("Fantasy Kitchen B", 0,0, grid);
-        locationCreate("Fantasy Kitchen A", 0,1, grid);
-        locationCreate("Entrance FK & SA", 0,2, grid);
-        locationCreate("Space Adventure A", 0,3, grid);
-        locationCreate("Space Adventure B", 0,4, grid);
-        locationCreate("Fantasy Kitchen C", 1,0, grid);
-        locationCreate("Dead Space", 1,1, grid);
-        locationCreate("Corridor Left", 1,2, grid);
-        locationCreate("Dead Space", 1,3, grid);
-        locationCreate("Space Adventure C", 1,4, grid);
-        locationCreate("Backdoor", 2,0, grid);
-        locationCreate("Corridor Top", 2,1, grid);
-        locationCreate("Start", 2,2, grid);
-        locationCreate("Corridor Bottom", 2,3, grid);
-        locationCreate("Front Door", 2,4, grid);
-        locationCreate("Remix C", 3,0, grid);
-        locationCreate("Dead Space", 3,1, grid);
-        locationCreate("Corridor Right", 3,2, grid);
-        locationCreate("Dead Space", 3,3, grid);
-        locationCreate("Wild West - Mineshaft", 3,4, grid);
-        locationCreate("Remix B", 4,0, grid);
-        locationCreate("Remix A", 4,1, grid);
-        locationCreate("Entrance R & WW", 4,2, grid);
-        locationCreate("Wild West - Entrance", 4,3, grid);
-        locationCreate("Wild West - Saloon", 4,4, grid);
-
-        mobCreate("Prancealot", forestIntro(), forestOutro(),10,100,100,0, 0, grid);
-        mobCreate("Barathrum", fantasyIntro(), fantasyOutro(),10,100,100,1, 0, grid);
-
-        mobCreate("Fuzz Aldrin",cargoHoldIntro(), cargoHoldOutro(),10,100,100,0, 4, grid);
-        mobCreate("Neil Legstrong",controlRoomIntro(), controlRoomOutro(),10,100,100,1, 4, grid);
-
-        mobCreate("Billy The Skid",saloonIntro(), saloonOutro(),10,100,100,4, 4, grid);
-        mobCreate("Mild Bill",mildBillIntro(), mildBillOutro(),10,100,100,3, 4, grid);
-
-        mobCreate("Xenodwarf",nestIntro(), nestOutro(),10,100,100,4, 0, grid);
-        mobCreate("Cyber Bill 3000",remixIntro(), remixOutro(),10,100,100,3, 0, grid);
+//        if (grid.checkXY(0,2)) {
+//            System.out.println("\n You have reached the end of the corridor. " +
+//                    "To the north is the door to the kitchen and to the south is the door to the bedrooms.\n");
+//        }else if (grid.checkXY(4,2)) {
+//            System.out.println("\n You have reached the end of the corridor. " +
+//                    "To the north is the door to the bathroom and to the south is the door to the lounge room.\n");
+//        }else if (grid.checkXY(2,1) || grid.checkXY(2,3) || grid.checkXY(1,2) || grid.checkXY(3,2)) {
+//            System.out.println("\n You step out into the corridor. There isn’t much going on. \n");
+//        }else if (grid.checkXY(2,4)) {
+//            mainChar.setHp(mainChar.getMaxHp());
+//            System.out.println("\n You reach the safe spot and call out “SAFE”. " +
+//                    "Knowing the world is just a little less dangerous fills you with the strength to move forward.\n" +
+//                    "\n Your HP fully heals to: ");
+//        }
 
 
-        itemCreate("JA", "First Piece", 1,0,0, grid);
-        itemCreate("VA", "Second Piece",1,4,0, grid);
-        itemCreate("MA", "Third Piece",3,4,0, grid);
-        itemCreate("N!", "Fourth Piece",3,0,0, grid);
+        locationCreate("Fantasy - Forest", "", 0, 0, grid);
+        locationCreate("Fantasy - Kitchen", fantasyEntrance(), 0, 1, grid);
+        locationCreate("Entrance FK & SA", leftEntrance(), 0, 2, grid);
+        locationCreate("Space Adventure - Bedroom", spaceEntrance(), 0, 3, grid);
+        locationCreate("Space Adventure - Cargo Hold", "", 0, 4, grid);
+        locationCreate("Fantasy - Mountain", "", 1, 0, grid);
+        locationCreate("Dead Space", "", 1, 1, grid);
+        locationCreate("Corridor Left", corridor(), 1, 2, grid);
+        locationCreate("Dead Space", "", 1, 3, grid);
+        locationCreate("Space Adventure - Control Room", "", 1, 4, grid);
+        locationCreate("Backdoor", "", 2, 0, grid);
+        locationCreate("Corridor Top", corridor(), 2, 1, grid);
+        locationCreate("Start", "", 2, 2, grid);
+        locationCreate("Corridor Bottom", corridor(), 2, 3, grid);
+        locationCreate("Front Door", frontDoor(), 2, 4, grid);
+        locationCreate("Remix - Plateau", "", 3, 0, grid);
+        locationCreate("Dead Space", "", 3, 1, grid);
+        locationCreate("Corridor Right", corridor(), 3, 2, grid);
+        locationCreate("Dead Space", "", 3, 3, grid);
+        locationCreate("Wild West - Mineshaft", "", 3, 4, grid);
+        locationCreate("Remix - Nest", "", 4, 0, grid);
+        locationCreate("Remix - Bathroom", remixEntrance(), 4, 1, grid);
+        locationCreate("Entrance R & WW", rightEntrance(), 4, 2, grid);
+        locationCreate("Wild West - Lounge Room", wwEntrance(), 4, 3, grid);
+        locationCreate("Wild West - Saloon", "", 4, 4, grid);
 
-        itemCreate("Bounty", "WANTED - Mild Bill (last seen in Mineshaft)",4,4,0, grid);
-        itemCreate("ID Card", "Just an ID card",0,4,0, grid);
-        itemCreate("Cylinder", "Cylinder",4,0,0, grid);
-        itemCreate("Silver Sword", "A silver sword", 0,0,0, grid);
+        mobCreate("Prancealot", forestIntro(), forestOutro(), 10, 100, 100, 0, 0, grid);
+        mobCreate("Barathrum", fantasyIntro(), fantasyOutro(), 10, 100, 100, 1, 0, grid);
 
+        mobCreate("Fuzz Aldrin", cargoHoldIntro(), cargoHoldOutro(), 10, 100, 100, 0, 4, grid);
+        mobCreate("Neil Legstrong", controlRoomIntro(), controlRoomOutro(), 10, 100, 100, 1, 4, grid);
+
+        mobCreate("Billy The Skid", saloonIntro(), saloonOutro(), 10, 100, 100, 4, 4, grid);
+        mobCreate("Mild Bill", mildBillIntro(), mildBillOutro(), 10, 100, 100, 3, 4, grid);
+
+        mobCreate("Xenodwarf", nestIntro(), nestOutro(), 10, 100, 100, 4, 0, grid);
+        mobCreate("Cyber Bill 3000", remixIntro(), remixOutro(), 10, 100, 100, 3, 0, grid);
+
+
+        itemCreate("JA", "First Piece", 1, 0, 0, grid);
+        itemCreate("VA", "Second Piece", 1, 4, 0, grid);
+        itemCreate("MA", "Third Piece", 3, 4, 0, grid);
+        itemCreate("N!", "Fourth Piece", 3, 0, 0, grid);
+
+        itemCreate("Bounty", "WANTED - Mild Bill (last seen in Mineshaft)", 4, 4, 0, grid);
+        itemCreate("ID Card", "Just an ID card", 0, 4, 0, grid);
+        itemCreate("Cylinder", "Cylinder", 4, 0, 0, grid);
+        itemCreate("Silver Sword", "A silver sword", 0, 0, 0, grid);
+
+        Itemcreate item = new Itemcreate("Lucky Charm", "A lucky charm you picked up.");
 //        itemCreate("Really Big Sword 2", 2,0,0, grid);
 //        itemCreate("Really Big Sword 3", 2,0,0, grid);
 //        locations = new Locations("Start"); //creates a new naming location object
@@ -122,7 +135,6 @@ public class MainGame {
 //
 
 
-
 //        System.out.println(locations.numEnemy());
 //        System.out.println(locations.getLocationName());
 //        Locations start = grid.getGridName(2,2);// initialise the Locations class in an instance called start, find the object in the array in the grid class via the getName method
@@ -136,7 +148,7 @@ public class MainGame {
         start.setGridNames(3, 3 , "start"); //sets name in Grid array for positions x and y
         System.out.println(start.getName(3, 3)); //prints out name in Grid array for positions x and y     */
 
-       //adding items
+        //adding items
 //        Itemcreate reallyBigSword = new Itemcreate("Really Big Sword"); //creating an object for "this is the item" called itemOne
 //        mainChar.addItem(itemOne);//adds itemOne to the array list
 //        Itemcreate itemTwo = new Itemcreate("this is the second item");// " " item two
@@ -150,46 +162,64 @@ public class MainGame {
         while (!command.equals("exit")) {
 
             //flavour text
-            if (grid.checkXY(0,2)) {
-                System.out.println("\n You have reached the end of the corridor. " +
-                        "To the north is the door to the kitchen and to the south is the door to the bedrooms.\n");
-            }else if (grid.checkXY(4,2)) {
-                System.out.println("\n You have reached the end of the corridor. " +
-                        "To the north is the door to the bathroom and to the south is the door to the lounge room.\n");
-            }else if (grid.checkXY(2,1) || grid.checkXY(2,3) || grid.checkXY(1,2) || grid.checkXY(3,2)) {
-                System.out.println("\n You step out into the corridor. There isn’t much going on. \n");
-            }else if (grid.checkXY(2,4)) {
+            System.out.println(grid.getGridName(grid.getX(), grid.getY()).getLocationDesc());
+
+            if (grid.checkXY(2, 4)) {
                 mainChar.setHp(mainChar.getMaxHp());
-                System.out.println("\n You reach the safe spot and call out “SAFE”. " +
-                        "Knowing the world is just a little less dangerous fills you with the strength to move forward.\n" +
-                        "\n You fully heal to: " + mainChar.getHp() + " HP \n");
+                System.out.print(" You heal to: " + mainChar.getHp() + "HP \n\n");
             }
 
             boolean lock = true;
-            if (grid.checkXY(2,0)) {
-                if (mainChar.containsItem("JA") && mainChar.containsItem("VA")&& mainChar.containsItem("MA")&& mainChar.containsItem("N!")) {
+            if (grid.checkXY(2, 0)) {
+                if (mainChar.containsItemName("JA") && mainChar.containsItemName("VA") && mainChar.containsItemName("MA") && mainChar.containsItemName("N!")) {
                     System.out.println("You feel a strong presence behind the back door. Would you like insert the strange shapes into the door? \n yes \n no");
                     String trigger = input.nextLine();
                     if (trigger.equals("yes")) {
-                        mainChar.removeItem(mainChar.getJava("JA"));
-                        mainChar.removeItem(mainChar.getJava("VA"));
-                        mainChar.removeItem(mainChar.getJava("MA"));
-                        mainChar.removeItem(mainChar.getJava("N!"));
+                        mainChar.removeItem(mainChar.getItemIndex("JA"));
+                        mainChar.removeItem(mainChar.getItemIndex("VA"));
+                        mainChar.removeItem(mainChar.getItemIndex("MA"));
+                        mainChar.removeItem(mainChar.getItemIndex("N!"));
                         System.out.println(pause());
                         input.nextLine();
-                    lock = false;} else if (trigger.equals("no")){
+                        lock = false;
+                    } else if (trigger.equals("no")) {
                         System.out.println("You follow your instincts and retreat.");
                     }
-                } else if (mainChar.containsItem("JA") || mainChar.containsItem("VA") || mainChar.containsItem("MA") || mainChar.containsItem("N!")){
+                } else if (mainChar.containsItemName("JA") || mainChar.containsItemName("VA") || mainChar.containsItemName("MA") || mainChar.containsItemName("N!")) {
                     System.out.println("You feel a slight warmth in your pockets from the shapes. " +
                             "You hear your sister's voice echo across the corridor, \"four pieces are needed to unlock the backdoor!\"\n");
                 } else {
+                    int i = 0;
                     System.out.println("\n You try to open the door to the backyard and find that it won’t budge. " +
                             "Upon closer inspection you see four shapes emblazoned on the door. What are they used for?\n");
+                    while (i <= 11) {
+                        String trigger;
+                        if (i == 0) {
+                            System.out.println("Attempt to forcibly break through? \n yes \n no");
+                        } else {
+                            System.out.println("Attempt to forcibly break through again? \n yes \n no");
+                        }
+                        trigger = input.nextLine();
+
+                        if (trigger.equals("no")) {
+                            break;
+                        } else if (trigger.equals("yes")) {
+                            i++;
+                            System.out.println("\nAs you hit the door in frustration, your sister gives you a disapproving look.\n");
+                        }
+// todo make sure to write the flavour text for the alternate ending
+                        if (i == 10) {
+                            System.out.println("\nDeath.\n");
+                            grid.sendEnd();
+                            break;
+                        } else if (i > 5) {
+                            System.out.println("You feel like something bad is going to happen.");
+                        }
+                    }
                 }
                 if (!lock) {
-                    mobCreate("javaman",javamanEncounter(), javamanDeath(),10,100,100,2, 0, grid);
-                    itemCreate("Nice.", "Niiiiice",2,0,0, grid);
+                    mobCreate("javaman", javamanEncounter(), javamanDeath(), 10, 100, 100, 2, 0, grid);
+                    itemCreate("Nice.", "Niiiiice", 2, 0, 0, grid);
                 }
             }
 
@@ -204,24 +234,24 @@ public class MainGame {
                 opponent = gridLocation.getEnemy();
             }
 
-            if(enemyExists) { //encounters enemy at location "second" via player x and y coordinates
-                if(opponent.isAlive()) {
+            if (enemyExists) { //encounters enemy at location "second" via player x and y coordinates
+                if (opponent.isAlive()) {
                     System.out.println(opponent.getIntro());
                     System.out.println(pause());
                     input.nextLine();
                 }
 
-                while(opponent.isAlive()) { // loop to ensure player stays in battle with enemy
+                while (opponent.isAlive()) { // loop to ensure player stays in battle with enemy
                     System.out.println("You have encountered: " + opponent.getName()); // shows encounter message of what mob via player x and y coordinates
                     System.out.println("Enemy Name: " + opponent.getName());
                     System.out.println("Enemy HP: " + opponent.getHp()); // prints enemy hp
                     System.out.println("Your HP: " + mainChar.getHp()); // prints player hp
-                    System.out.println("\n What would you like to do? \n Attack \n Strong Attack \n Defend \n"); // menu selection
+                    System.out.println("\n What would you like to do? \n 1 - Attack \n 2 - Strong Attack \n 3 - Defend \n"); // menu selection
                     String trigger = input.nextLine().toLowerCase(); // menu selection
 
                     int enemyAtk = opponent.getAtk(); //attack variable for mobTwo
                     switch (trigger) {
-                        case "attack" -> {
+                        case "1" -> {
                             opponent.takeDamage(playerAtk);// does damage = to player attack to enemy
                             System.out.println("You hit the enemy for " + (playerAtk) + " damage!");
                             TimeUnit.MILLISECONDS.sleep(500);
@@ -229,8 +259,8 @@ public class MainGame {
                             System.out.println("You took " + (enemyAtk - playerDef) + " damage!\n");
                             TimeUnit.MILLISECONDS.sleep(500);
                         }
-                        case "strong attack" -> {
-                            int strongAttack = (int)(Math.random()*(2-1+1)+1);
+                        case "2" -> {
+                            int strongAttack = (int) (Math.random() * (2 - 1 + 1) + 1);
                             opponent.takeDamage((playerAtk * strongAttack)); // 50% chance of doing double damage
                             if (strongAttack == 2) {
                                 System.out.println("Critical Strike! \nYour sister cheers from the sidelines: " +
@@ -242,13 +272,13 @@ public class MainGame {
                             System.out.println("You risky attack dropped your defences! You took " + (enemyAtk + (playerDef / 2)) + " damage!\n");
                             TimeUnit.MILLISECONDS.sleep(500);
                         }
-                        case "defend" -> {
+                        case "3" -> {
                             mainChar.takeDamage(enemyAtk - (playerDef * 2));
-                            System.out.println("You steel your defences against the enemy. You took " + (enemyAtk - playerDef) + " damage!\n");
+                            System.out.println("You steel your defences against the enemy. You took " + (enemyAtk - (playerDef * 2)) + " damage!\n");
                             TimeUnit.MILLISECONDS.sleep(500);
                         }
                     }
-                    if(!opponent.isAlive()) {
+                    if (!opponent.isAlive()) {
                         System.out.println(opponent.getOutro());
                         System.out.println(pause());
                         input.nextLine();
@@ -258,10 +288,10 @@ public class MainGame {
                         System.out.println(pause());
                         input.nextLine();
 
-                        if (grid.checkXY(2,0)){
+                        if (grid.checkXY(2, 0)) {
                             grid.sendEnd();
                             break;
-                        }else if(grid.checkXY(1,0) || grid.checkXY(3,0) || grid.checkXY(1,4) || grid.checkXY(3,4)) {
+                        } else if (grid.checkXY(1, 0) || grid.checkXY(3, 0) || grid.checkXY(1, 4) || grid.checkXY(3, 4)) {
                             grid.sendStart();
                             System.out.println("After defeating the boss, the world comes back into focus as you look " +
                                     "around, \nyou’re back at the junction of the hallways, all four directions spanning outwards.\n");
@@ -277,7 +307,7 @@ public class MainGame {
                 }
             }
 
-            if (grid.checkXY(1,1)) {
+            if (grid.checkXY(1, 1)) {
                 break;
             } //condition to end the game after defeating the final boss
 
@@ -288,63 +318,149 @@ public class MainGame {
                 grid.sendStart();
             }
 
-            System.out.println("What would you like to do? \n Move: up | down | left | right \n take damage \n help \n stats \n inventory \n"); //menu selection
+            System.out.println("What would you like to do? \n Move: w - north | a - east | s - south | d - west \n 1 - Check your stats \n 2 - Opens your inventory"); //menu selection
+            if (grid.checkXY(2, 2)) {
+                System.out.println(" 3 - Talk to sister");
+                if (!mainChar.containsItemName("Lucky Charm")) {
+                    System.out.println(" 4 - Investigate Area");
+                }
+            }
             command = String.valueOf(input.nextLine());
 
             switch (command) {
 //moves up in the grid
-                case "up" -> {
+                case "w" -> {
                     grid.up();
                     System.out.println();
                 }
 //moves down in the grid
-                case "down" -> {
+                case "s" -> {
                     grid.down();
                     System.out.println();
                 }
 //moves left in the grid
-                case "left" -> {
+                case "a" -> {
                     grid.left();
                     System.out.println();
                 }
 //moves right in the grid
-                case "right" -> {
+                case "d" -> {
                     grid.right();
                     System.out.println();
                 }
-                case "stats" -> {
-                    System.out.println("Your Stats: " + "\n" + mainChar.getHpStat() + "\n" + mainChar.getAtkStat() + "\n");
+                case "1" -> {
+                    System.out.println(mainChar.getName() + "\n\n" + "Your Stats: " + "\n" + mainChar.getHpStat() + "\n" + mainChar.getAtkStat() + "\n");
                     System.out.println(pause());
                     input.nextLine();
                 }
-                case "help" -> {
-                    System.out.println("This is the help menu! \n " + "");
-                    System.out.println(pause());
-                    input.nextLine();
-                }
-                case "inventory" -> {
-                    System.out.println("This is your inventory! \n Total number of items: " + mainChar.getSize());
-                    for (int i = 0; i < mainChar.getSize(); i++) {
-                        System.out.println("\nItem " + (i+1) + ": " + mainChar.getItem(i));
-                        System.out.println("- " + mainChar.getDesc(i));
+                case "2" -> {
+                    input = new Scanner(System.in);
+                    boolean invLock = true;
+                    while (invLock) {
+                        System.out.println("Inventory \n Options: \n 1 - description \n 2 - exit \n Total number of items: " + mainChar.getSize());
+                        for (int i = 0; i < mainChar.getSize(); i++) {
+                            System.out.println("\nItem " + (i + 1) + ": " + mainChar.getItem(i));
+                        }
+
+                        String invTrigger = input.nextLine();
+                        if (invTrigger.equals("1")) {
+                            System.out.println("Type in item number:");
+                            int trigger = Integer.parseInt(input.nextLine());
+                            if (mainChar.containsItemIndex(trigger) && trigger > 0) {
+                                int indexTrigger = trigger - 1;
+                                System.out.println(mainChar.getItem(indexTrigger) + "\n- " + mainChar.getDesc(indexTrigger));
+                            } else {
+                                System.out.println("Item does not exist.");
+                            }
+                            input.nextLine();
+                        } else if (invTrigger.equals("2")) {
+                            invLock = false;
+                        }
                     }
-                    System.out.print(pause());
+                }
+                // todo make sure to change npc advice (sibling)
+                case "3" -> {
+                    System.out.println("This is the help menu! \n " + "");
+                    if (grid.checkXY(2, 2)) {
+                        System.out.println(sibling.getName() + ": Would you like some help? \n yes \n no");
+                        String trigger = input.nextLine();
+                        if (trigger.equals("yes")) {
+                            boolean siblingLock = true;
+                            while (siblingLock) {
+                                System.out.println(sibling.getName() + ": What do you need help with? \n 1 - What do I need to do? \n 2 - How do I heal up? \n 3 - How many endings are there? \n 4 - Go back.");
+                                trigger = input.nextLine();
+                                if (trigger.equals("1")) {
+                                    if (!mainChar.containsItemName("JA")) {
+                                        if (!mainChar.containsItemName("Silver Sword")) {
+                                            System.out.println("Go kill 1,0");
+                                        } else {
+                                            System.out.println("Kill 0,0");
+                                        }
+                                    }
+                                    if (!mainChar.containsItemName("VA")) {
+                                        if (!mainChar.containsItemName("ID Card")) {
+                                            System.out.println("Go kill 0,4");
+                                        } else {
+                                            System.out.println("Kill 1,4");
+                                        }
+                                    }
+                                    if (!mainChar.containsItemName("MA")) {
+                                        if (!mainChar.containsItemName("Bounty")) {
+                                            System.out.println("Go kill 4,4");
+                                        } else {
+                                            System.out.println("Kill 3,4");
+                                        }
+                                    }
+                                    if (!mainChar.containsItemName("N!")) {
+                                        if (!mainChar.containsItemName("Cylinder")) {
+                                            System.out.println("Go kill 4,0");
+                                        } else {
+                                            System.out.println("Kill 3,0");
+                                        }
+                                    }
+                                } else if (trigger.equals("2")) {
+                                    System.out.println();
+                                } else if (trigger.equals("3")) {
+                                    System.out.println("There are three endings.");
+                                } else if (trigger.equals("4")) {
+                                    siblingLock = false;
+                                }
+                                System.out.println(pause());
+                                input.nextLine();
+                            }
+                        }
+                    } else {
+                        System.out.println("You are too far away from " + sibling.getName() + " to hear her.");
+                    }
+                    System.out.println(pause());
                     input.nextLine();
                 }
+                case "4" -> {
+                    if (!mainChar.containsItemName("Lucky Charm")) {
+                        System.out.println("You found a lucky charm on the floor, would you like to pick it up? \n yes \n no");
+                        String trigger;
+                        trigger = input.nextLine();
+                        if (trigger.equals("yes")) {
+                            mainChar.addItem(item);
+                        }
+                    }
+                }
+
                 case "take damage" -> {
                     mainChar.takeDamage(500);
                     System.out.println("You took 500 damage! \n" + mainChar.getHpStat() + "\n" + pause());
                     input.nextLine();
                 }
                 case "cheat" -> {
-                    mainChar.addItem(grid.getGridName(1,0).getEnemy().getItem());
-                    mainChar.addItem(grid.getGridName(1,4).getEnemy().getItem());
-                    mainChar.addItem(grid.getGridName(3,4).getEnemy().getItem());
-                    mainChar.addItem(grid.getGridName(3,0).getEnemy().getItem());
+                    mainChar.addItem(grid.getGridName(1, 0).getEnemy().getItem());
+                    mainChar.addItem(grid.getGridName(1, 4).getEnemy().getItem());
+                    mainChar.addItem(grid.getGridName(3, 4).getEnemy().getItem());
+                    mainChar.addItem(grid.getGridName(3, 0).getEnemy().getItem());
                 }
             }
-            }
         }
+    }
+
     static String javamanDeath() {
         return "\n With one final swing you slog Javaman across the jawbone and watch him " +
                 "\n slump to the ground. Breathing heavily you turn to your younger sibling to " +
@@ -405,7 +521,7 @@ public class MainGame {
     }
 
     static String mildBillIntro() {
-        return"You walk towards the thug in the middle of the street. He looks up and mumbles \"You the deputy?\" You nod " +
+        return "You walk towards the thug in the middle of the street. He looks up and mumbles \"You the deputy?\" You nod " +
                 "\n and he asks \"Y’know who I am, boy?\" you study his face and recognise it from the bounty \"You’re Mild Bill\" " +
                 "\n he cracks a crass smile \"And I shot the sheriff, guess I’ll now have to shoot the deputy! DRAW!\"";
     }
@@ -419,7 +535,7 @@ public class MainGame {
     }
 
     static String cargoHoldIntro() {
-        return"You follow the corridor out into a very wide open space, shipping containers strewn through the air, " +
+        return "You follow the corridor out into a very wide open space, shipping containers strewn through the air, " +
                 "\n a few of them burst open in their sides or in other seemingly random locations. \n" +
                 "\n \"Hold it\" you hear someone call out from amongst the containers. Your sister, not heeding the warning" +
                 "\n  steps forward and between a flash of light and your quick reflexes you manage to save her from a laser " +
@@ -542,7 +658,54 @@ public class MainGame {
                 "\n sister picks it up and shows it to you \"Looks like the letter ‘A’, right?\" You nod in agreement " +
                 "\n and the world around you fades to white.";
     }
+
+    static String corridor() {
+        return "\n You step out into the corridor. There isn’t much going on. \n";
     }
+
+    static String frontDoor() {
+        return "\n You reach the safe spot and call out “SAFE”. " +
+                "Knowing the world is just a little less dangerous fills you with the strength to move forward.";
+    }
+
+    static String rightEntrance() {
+        return "\n You have reached the end of the corridor. " +
+                "To the north is the door to the bathroom and to the south is the door to the lounge room.\n";
+    }
+
+    static String leftEntrance() {
+        return "\n You have reached the end of the corridor. " +
+                "To the north is the door to the kitchen and to the south is the door to the bedrooms.\n";
+    }
+
+    static String wwEntrance() {
+        return "\n \"You enter through the door, and find yourself in a dusty old west town. To your left you spy an " +
+                "\n unsuspecting saloon, filled with the roughest of the rough and to your right you notice the opulent" +
+                "\n  opening of the town’s mineshaft, labeled \"GOLD BE HERE!\". A tumbleweed slides gracefully across " +
+                "\n the main road in front of you, drawing your eyes to a rough thug with a chip on his shoulder, and " +
+                "\n his hand on his holster...\"\n";
+    }
+
+    static String fantasyEntrance() {
+        return "\n \"As you walk through the kitchen door, the world around you brightens, faeries flutter across the " +
+                "\n path leading to a sprawling vista of hills and grassy fields. To the right of you, there's an opening " +
+                "\n to a forest path that seems to lead up towards an imposing mountain...\"\n";
+    }
+
+    static String spaceEntrance() {
+        return "\n \"As the bedroom door slowly creaks open, you feel your body drift up from the floor. As you enter, " +
+                "\n you let out a small gasp as you lose your breath realising the air is still breathable. The sky above " +
+                "\n you opens up to an alien moon gently floating in a sea of stars and a beautiful stream of lights that " +
+                "\n seem to carry every colour on the spectrum within. You float over to an abandoned space station taking " +
+                "\n a peek inside. You see a sign pointing south that reads cargo hold\"\n";
+    }
+
+    static String remixEntrance() {
+        return "\n \"You feel a strange pulse pass through you as your hand touches the bathroom door, it slides open " +
+                "\n and you see a chaotic hodge-podge of pure imagination. Up north you see a nest of some kind, yet " +
+                "\n adorned with the bold characteristics of an ancient race of men?\"\n";
+    }
+}
 
 
 

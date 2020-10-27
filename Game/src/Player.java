@@ -36,7 +36,7 @@ public class Player {
         return inventory.size();
     }
 
-    public boolean containsItem(String name) {
+    public boolean containsItemName(String name) {
         for (int i = 0; i < inventory.size(); i++) {
             String itemName = inventory.get(i).getItemName();
             if (itemName.equals(name)) {
@@ -46,7 +46,14 @@ public class Player {
         return false;
     }
 
-    public int getJava(String name) {
+    public boolean containsItemIndex(int index) {
+        if (inventory.size() < index) {
+            return false;
+            }
+        return true;
+    }
+
+    public int getItemIndex(String name) {
         for (int i = 0; i < inventory.size(); i++) {
             String itemName = inventory.get(i).getItemName();
             if (itemName.equals(name)) {
@@ -58,6 +65,7 @@ public class Player {
 
 //Player Creation
     public Player(String name, int hp, int maxHp, int atk, int def) {
+        this.name = name;
         this.hp = hp;
         this.maxHp = maxHp;
         this.atk = atk;
@@ -68,6 +76,10 @@ public class Player {
 
     public int getHp() {
         return hp;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getMaxHp() {return maxHp;}

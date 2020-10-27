@@ -51,7 +51,7 @@ public class Enemy {
 
     //getters
     public boolean isAlive() {
-        return hp > 1;
+        return hp > 0;
     }
     public String getName() {
         return name;
