@@ -528,8 +528,8 @@ public class MainGame {
                 "\n  aged and torn up papers, each with a name and a bounty attributed to them. One catches your eye, the " +
                 "\n aforementioned \"Mild Bill\" with a bounty of $50 ($5000 adjusted for inflation). You grasp the bounty " +
                 "\n and rip it from the board. Without a single word, the two of you leave the now trashed saloon that was " +
-                "\n somehow still as lively as it was before your fight. On the main road, you look north and see the rough " +
-                "\n thug from before, something tells you that the mine to the left might be a better place to look for now.";
+                "\n somehow still as lively as it was before your fight. On the main road, you look up the road and see " +
+                "\n the rough thug from before, could that be Mild Bill?";
     }
 
     static String mildBillIntro() {
@@ -751,7 +751,7 @@ public class MainGame {
                 "\n “Triple damage?! That Lucky Charm must be coming in handy!\n";
     }
     static String mainMenu(){
-        return "What would you like to do? \n Move: w - north | a - east | s - south | d - west " +
+        return "What would you like to do? \n Move: w - north | a - west | s - south | d - east " +
                 "\n 1 - Check your stats \n 2 - Opens your inventory";
     }
     static String inventoryMenu(){
