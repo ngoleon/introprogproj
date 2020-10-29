@@ -1,5 +1,7 @@
 public class Itemcreate {
 
+
+
     private String itemName;
     private String itemDesc;
 
@@ -17,4 +19,10 @@ public class Itemcreate {
         return itemDesc;
     }
 
+    //setter
+    public void setItemNameDesc(String itemName, String itemDesc) {
+        this.itemName = itemName;
+        this.itemDesc = itemDesc;
+    }
 }
+

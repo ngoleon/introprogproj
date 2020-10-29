@@ -13,7 +13,7 @@ public class Locations {
     }
     ArrayList<Enemy> enemyArrayList = new ArrayList<Enemy>(); //array for enemy mobs
 
-    public Enemy getEnemy() {
+    public Enemy getEnemy() { //retrieves random enemy from arraylist
         if(enemyArrayList.size() > 0) {
             int rand = new Random().nextInt(enemyArrayList.size());
             return enemyArrayList.get(rand);

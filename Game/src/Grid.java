@@ -4,7 +4,6 @@ public class Grid {
     private int y;
     private final int dimension = 5;
 
-    private int encounterRate;
 
     //Grid 2d array
     Locations[][] gridNames = new Locations[dimension][dimension];
@@ -34,44 +33,44 @@ public class Grid {
     //Grid movement
     public void left() {
         if (x == 2 && y == 0) {
-        } else if (x == 2 && y == 1) {
+        } else if (x == 2 && y == 1) { //movement constraints
         } else if (x == 2 && y == 3) {
         } else if (x == 2 && y == 4) {
         } else if (x == 4 && y == 1) {
         } else if (x == 4 && y == 3) {
-        } else if (checkGrid(x - 1)) {
+        } else if (checkGrid(x - 1)) { //method to check whether movement in grid is valid
             x -= 1;
         }
     }
 
     public void right() {
         if (x == 2 && y == 0) {
-        } else if (x == 2 && y == 1) {
+        } else if (x == 2 && y == 1) { //movement constraints
         } else if (x == 2 && y == 3) {
         } else if (x == 2 && y == 4) {
         } else if (x == 0 && y == 1) {
         } else if (x == 0 && y == 3) {
-        } else if (checkGrid(x + 1)) {
+        } else if (checkGrid(x + 1)) { //method to check whether movement in grid is valid
             x += 1;
         }
     }
 
     public void up() {
         if (x == 1 && y == 2) {
-        } else if (x == 3 && y == 2) {
+        } else if (x == 3 && y == 2) { //movement constraints
         } else if (x == 1 && y == 4) {
         } else if (x == 3 && y == 4) {
-        } else if (checkGrid(y - 1)) {
+        } else if (checkGrid(y - 1)) { //method to check whether movement in grid is valid
             y -= 1;
         }
     }
 
     public void down() {
         if (x == 1 && y == 2) {
-        } else if (x == 3 && y == 2) {
+        } else if (x == 3 && y == 2) { //movement constraints
         } else if (x == 1 && y == 0) {
         } else if (x == 3 && y == 0) {
-        } else if (checkGrid(y + 1)) {
+        } else if (checkGrid(y + 1)) { //method to check whether movement in grid is valid
             y += 1;
         }
     }
@@ -85,12 +84,12 @@ public class Grid {
         return false;
     }
 
-    public void sendStart() {
+    public void sendStart() { //sends player to starting grid location 2,2
         x = 2;
         y = 2;
     }
 
-    public void sendEnd() {
+    public void sendEnd() { //sends player to ending grid location 1,1
         x = 1;
         y = 1;
     }

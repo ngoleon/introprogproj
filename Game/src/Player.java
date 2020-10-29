@@ -7,9 +7,6 @@ public class Player {
     private int maxHp;
     private int atk;
     private int def;
-    private int numPotions;
-    private int x;
-    private int y;
 
     //Inventory System
     ArrayList<Itemcreate> inventory = new ArrayList<Itemcreate>();
@@ -36,8 +33,8 @@ public class Player {
         return inventory.size();
     }
 
-    public boolean containsItemName(String name) {
-        for (int i = 0; i < inventory.size(); i++) {
+    public boolean containsItemName(String name) { //checks for String of item name in arraylist
+        for (int i = 0; i < inventory.size(); i++) { //for loop to check through total inventory size
             String itemName = inventory.get(i).getItemName();
             if (itemName.equals(name)) {
                 return true;
@@ -46,14 +43,24 @@ public class Player {
         return false;
     }
 
-    public boolean containsItemIndex(int index) {
+    public Itemcreate returnItemName(String name) { //checks for String of item name in arraylist
+        for (int i = 0; i < inventory.size(); i++) { //for loop to check through total inventory size
+            String itemName = inventory.get(i).getItemName();
+            if (itemName.equals(name)) {
+                return inventory.get(i);
+            }
+        }
+        return inventory.get(0);
+    }
+
+    public boolean containsItemIndex(int index) { //checks if index of item in arraylist exists
         if (inventory.size() < index) {
             return false;
             }
         return true;
     }
 
-    public int getItemIndex(String name) {
+    public int getItemIndex(String name) { //returns index of an item with a certain String name
         for (int i = 0; i < inventory.size(); i++) {
             String itemName = inventory.get(i).getItemName();
             if (itemName.equals(name)) {
@@ -134,12 +141,9 @@ public class Player {
     public void takeDamage(int damage) {
         hp = hp - damage;
     }
-    public void heal() {
-        if (numPotions > 0) {
-            numPotions--;
-            hp = maxHp;
-        }
-    }
 
+    public void heal(int heal) {
+        hp = hp + heal;
+    }
     //Location
 }

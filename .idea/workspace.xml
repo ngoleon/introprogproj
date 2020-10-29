@@ -19,13 +19,18 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec358722-22c2-46e8-a1ba-ca58b8531806" name="Default Changelist" comment="27/10/2020">
+    <list default="true" id="ec358722-22c2-46e8-a1ba-ca58b8531806" name="Default Changelist" comment="28/10/2020">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/src/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/src/Grid.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/Grid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Game/src/Itemcreate.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/Itemcreate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/src/Locations.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/Locations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/src/MainGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/MainGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Game/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Game/src/Sibling.java" beforeDir="false" afterPath="$PROJECT_DIR$/Game/src/Sibling.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/introprogproj/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/introprogproj/Enemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/introprogproj/Grid.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/introprogproj/Grid.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/introprogproj/Locations.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/introprogproj/Locations.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/introprogproj/MainGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/introprogproj/MainGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/introprogproj/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/introprogproj/Player.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,19 +70,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainGame" />
@@ -95,7 +87,8 @@
       <workItem from="1602933160198" duration="86000" />
       <workItem from="1603205174606" duration="1853000" />
       <workItem from="1603256915985" duration="58973000" />
-      <workItem from="1603780817274" duration="21617000" />
+      <workItem from="1603780817274" duration="44603000" />
+      <workItem from="1603897714908" duration="6860000" />
     </task>
     <task id="LOCAL-00001" summary="26/10/2020">
       <created>1603639557592</created>
@@ -111,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603723961239</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="28/10/2020">
+      <created>1603811638947</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1603811638947</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,13 +132,14 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="26/10/2020" />
     <MESSAGE value="27/10/2020" />
-    <option name="LAST_COMMIT_MESSAGE" value="27/10/2020" />
+    <MESSAGE value="28/10/2020" />
+    <option name="LAST_COMMIT_MESSAGE" value="28/10/2020" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="830" y="257" key="#com.intellij.ide.util.MemberChooser" timestamp="1603802177945">
+    <state x="830" y="257" key="#com.intellij.ide.util.MemberChooser" timestamp="1603944927819">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="830" y="257" key="#com.intellij.ide.util.MemberChooser/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603802177945" />
+    <state x="830" y="257" key="#com.intellij.ide.util.MemberChooser/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603944927819" />
     <state x="850" y="279" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1601653331068">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
@@ -147,30 +148,30 @@
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="805" y="311" key="FileChooserDialogImpl/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1602933219986" />
-    <state width="2005" height="475" key="GridCell.Tab.0.bottom" timestamp="1603811208544">
+    <state width="2005" height="475" key="GridCell.Tab.0.bottom" timestamp="1603945964467">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="475" key="GridCell.Tab.0.bottom/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603811208544" />
-    <state width="2005" height="475" key="GridCell.Tab.0.center" timestamp="1603811208544">
+    <state width="2005" height="475" key="GridCell.Tab.0.bottom/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603945964467" />
+    <state width="2005" height="475" key="GridCell.Tab.0.center" timestamp="1603945964467">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="475" key="GridCell.Tab.0.center/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603811208544" />
-    <state width="2005" height="475" key="GridCell.Tab.0.left" timestamp="1603811208544">
+    <state width="2005" height="475" key="GridCell.Tab.0.center/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603945964467" />
+    <state width="2005" height="475" key="GridCell.Tab.0.left" timestamp="1603945964467">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="475" key="GridCell.Tab.0.left/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603811208544" />
-    <state width="2005" height="475" key="GridCell.Tab.0.right" timestamp="1603811208544">
+    <state width="2005" height="475" key="GridCell.Tab.0.left/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603945964467" />
+    <state width="2005" height="475" key="GridCell.Tab.0.right" timestamp="1603945964467">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state width="2005" height="475" key="GridCell.Tab.0.right/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603811208544" />
+    <state width="2005" height="475" key="GridCell.Tab.0.right/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603945964467" />
     <state x="501" y="174" key="SettingsEditor" timestamp="1603633350072">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="501" y="174" key="SettingsEditor/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603633350072" />
-    <state x="617" y="289" key="Vcs.Push.Dialog.v2" timestamp="1603723964977">
+    <state x="617" y="289" key="Vcs.Push.Dialog.v2" timestamp="1603811645308">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
-    <state x="617" y="289" key="Vcs.Push.Dialog.v2/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603723964977" />
+    <state x="617" y="289" key="Vcs.Push.Dialog.v2/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1603811645308" />
     <state x="725" y="314" key="refactoring.ChangeSignatureDialog" timestamp="1601778297054">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
