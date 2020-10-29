@@ -38,6 +38,8 @@ public class Grid {
         } else if (x == 2 && y == 4) {
         } else if (x == 4 && y == 1) {
         } else if (x == 4 && y == 3) {
+        } else if (x == 3 && y == 4) {
+        } else if (x == 3 && y == 0) {
         } else if (checkGrid(x - 1)) { //method to check whether movement in grid is valid
             x -= 1;
         }
@@ -50,6 +52,8 @@ public class Grid {
         } else if (x == 2 && y == 4) {
         } else if (x == 0 && y == 1) {
         } else if (x == 0 && y == 3) {
+        } else if (x == 1 && y == 0) {
+        } else if (x == 1 && y == 4) {
         } else if (checkGrid(x + 1)) { //method to check whether movement in grid is valid
             x += 1;
         }
