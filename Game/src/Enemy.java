@@ -23,10 +23,10 @@ public class Enemy {
     //start of item array
     ArrayList<Itemcreate> itemArrayList = new ArrayList<Itemcreate>(); //array for enemy mobs
 
-    public Itemcreate getItem() {
-        if(itemArrayList.size() > 0) {
-            int rand = new Random().nextInt(itemArrayList.size());
-            return itemArrayList.get(rand);
+    public Itemcreate getItem() { //method to retrieve a random enemy object from arraylist
+        if(itemArrayList.size() > 0) { //checks if there are objects in array list
+            int rand = new Random().nextInt(itemArrayList.size()); //create a random index number
+            return itemArrayList.get(rand); //returns enemy object with rand int
         } else {
             return null;
         }

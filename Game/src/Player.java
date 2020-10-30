@@ -61,7 +61,7 @@ public class Player {
     }
 
     public int getItemIndex(String name) { //returns index of an item with a certain String name
-        for (int i = 0; i < inventory.size(); i++) {
+        for (int i = 0; i < inventory.size(); i++) { //for loop to check through total inventory size
             String itemName = inventory.get(i).getItemName();
             if (itemName.equals(name)) {
                 return i;

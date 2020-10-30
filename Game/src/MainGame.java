@@ -3,9 +3,6 @@ import java.lang.Math;
 import java.util.concurrent.TimeUnit;
 
 
-// todo make sure to create algorithms
-// todo comment everything
-//todo change stats of everything
 
 public class MainGame {
 
@@ -34,6 +31,8 @@ public class MainGame {
         Grid grid = new Grid(2, 2); //creates an instance of the Grid class, sets starting location
 
         //starting menu (player name and sibling name)
+        System.out.println("Javaman: The Game \n");
+
         System.out.println("What is your name: ");
         String name = input.nextLine();
         System.out.println();
@@ -162,9 +161,25 @@ public class MainGame {
                         }
 
                         if (i == 10) { //if door is broken into 10 times
-                            System.out.println(doorBreak()); //prints out flavour text
-                            grid.sendEnd(); //method to send player to the end coordinates which end the game
-                            break; //break the loop
+                            boolean doorBreakLock = true; //boolean for door break loop
+                            while (doorBreakLock) { //door break loop
+                                System.out.println(doorBreak()); //prints out flavour text
+                                mainCharDeath(); //prints "you died"
+                                trigger = input.nextLine();
+                                if (trigger.equals("1")) { //respawn prompt
+                                    grid.sendStart(); //method to set players x and y coordinates to starting location 2,2
+                                    mainChar.setHp(mainChar.getMaxHp()); //sets player hp back to maximum
+                                    doorBreakLock = false; //breaks door break loop
+                                } else if (trigger.equals("2")) { //end game prompt
+                                    System.out.println("Are you sure? \n type 'CONFIRM'"); //confirmation prompt
+                                    trigger = input.nextLine(); //user input confirmation prompt
+                                    if (trigger.equals("CONFIRM")) { //confirmation prompt
+                                        grid.sendEnd();
+                                        doorBreakLock = false;
+                                    }
+                                }
+                            }
+                            break;
                         } else if (i > 5) { //else if door is attempted to be broken into over 5 times
                             System.out.println("You feel like something bad is going to happen."); //prints out warning
                         }
@@ -196,7 +211,7 @@ public class MainGame {
 
                 while (opponent.isAlive()) { // loop to ensure player stays in battle with enemy
                     System.out.println("You have encountered: " + opponent.getName()); // shows encounter message of what mob via player x and y coordinates
-                    System.out.println("Enemy Name: " + opponent.getName());
+                    System.out.println("Enemy Name: " + opponent.getName()); //prints enemy name
                     System.out.println("Enemy HP: " + opponent.getHp()); // prints enemy hp
                     System.out.println("Your HP: " + mainChar.getHp()); // prints player hp
                     System.out.println("\n What would you like to do? \n 1 - Attack \n 2 - Strong Attack \n 3 - Defend \n"); // menu selection
@@ -259,14 +274,14 @@ public class MainGame {
                             while (javamanLock) {
                                 System.out.println(" 1 - Free Roam \n 2 - End Game"); //prints "you died"
                                 trigger = input.nextLine();
-                                if (trigger.equals("1")) {
+                                if (trigger.equals("1")) { //selection for free roam
                                     grid.sendStart(); //method to set players x and y coordinates to starting location 2,2
                                     mainChar.setHp(mainChar.getMaxHp()); //sets player hp back to maximum
                                     javamanLock = false; //breaks battle loop
-                                } else if (trigger.equals("2")) {
-                                    System.out.println("Are you sure? \n type 'CONFIRM'");
-                                    trigger = input.nextLine();
-                                    if (trigger.equals("CONFIRM")) {
+                                } else if (trigger.equals("2")) { //selection for end game
+                                    System.out.println("Are you sure? \n type 'CONFIRM'"); //confirmation prompt
+                                    trigger = input.nextLine(); //user input confirmation prompt
+                                    if (trigger.equals("CONFIRM")) { //confirmation prompt
                                         grid.sendEnd();
                                         javamanLock = false;
                                     }
@@ -281,17 +296,17 @@ public class MainGame {
                     if (mainChar.isDead()) { //method to check if player is dead
                         boolean deathLock = true;
                         while (deathLock) {
-                            System.out.println(mainCharDeath()); //prints "you died"
+                            mainCharDeath(); //prints "you died"
                             trigger = input.nextLine();
-                            if (trigger.equals("1")) {
+                            if (trigger.equals("1")) { //selection for respawn
                                 grid.sendStart(); //method to set players x and y coordinates to starting location 2,2
                                 mainChar.setHp(mainChar.getMaxHp()); //sets player hp back to maximum
                                 opponent.setHp(opponent.getMaxHp()); //sets enemy hp back to maximum
                                 deathLock = false; //breaks battle loop
-                            } else if (trigger.equals("2")) {
-                                System.out.println("Are you sure? \n type 'CONFIRM'");
-                                trigger = input.nextLine();
-                                if (trigger.equals("CONFIRM")) {
+                            } else if (trigger.equals("2")) { //selection to end game
+                                System.out.println("Are you sure? \n type 'CONFIRM'"); //confirmation prompt
+                                trigger = input.nextLine(); //user input confirmation prompt
+                                if (trigger.equals("CONFIRM")) { //confirmation prompt
                                     grid.sendEnd();
                                     deathLock = false;
                                 }
@@ -308,11 +323,6 @@ public class MainGame {
 
             System.out.println("Your Location: " + grid.getGridName(grid.getX(), grid.getY()).getLocationName());//prints out Grid name in array
 
-            if (mainChar.isDead()) {
-                System.out.println("You died.");
-                grid.sendStart();
-            }
-
             System.out.println(mainMenu()); //menu selection
             if (grid.checkXY(2, 2)) { //checks grid location to be 2,2
                 System.out.println(" 3 - Talk to sister"); //prints npc interaction option
@@ -320,7 +330,7 @@ public class MainGame {
                     System.out.println(" 4 - Investigate Area"); //prints investigate lucky charm item option
                 }
                 if (mainChar.containsItemName("The True Ending!")) {
-                    System.out.println(" 0 - Mob Builder");
+                    System.out.println("createmob // playercheats");
                 }
             }
             command = String.valueOf(input.nextLine()); //variable for menu switch statement
@@ -378,8 +388,8 @@ public class MainGame {
                 } //inventory system
                 case "3" -> {
                     if (grid.checkXY(2, 2)) { //checks player grid location is 2,2
-                        boolean npcLock = true;
-                        while (npcLock) {
+                        boolean npcLock = true; //boolean for while loop
+                        while (npcLock) { //loop for npc interaction
                             System.out.println(sibling.getName() + ": Hey " + mainChar.getName() + npcMenu()); //prints out npc interaction menu
                             String trigger = input.nextLine(); //stores String trigger for if statements/menu selection
                             if (trigger.equals("1")) { //if option 1 (help) is selected
@@ -394,31 +404,31 @@ public class MainGame {
                                         } else if (mainChar.containsItemName("JA") && mainChar.containsItemName("VA")
                                                 && mainChar.containsItemName("MA")) { //checks whether items are in inventory/array
                                             System.out.println(sibling.getName() + npcBathroom()); //prints out npc guide text
-                                            if (!mainChar.containsItemName("Cylinder")) { //checks whether item is in inventory/array
-                                                System.out.println(" - Go investigate the bathroom!");
+                                            if (mainChar.containsItemName("Cylinder") || mainChar.containsItemName("Cylinder (u)")) { //checks whether item is in inventory/array
+                                                System.out.println(" - Cyber Bill awaits in the Remix Plateau...");
                                             } else {
-                                                System.out.println(" - Cyber Bill awaits in the Remix...");
+                                                System.out.println(" - Go investigate the Remix Nest!");
                                             }
                                         } else if (mainChar.containsItemName("JA") && mainChar.containsItemName("VA")) { //checks whether items are in inventory/array
                                             System.out.println(sibling.getName() + npcLounge());
-                                            if (!mainChar.containsItemName("Bounty")) { //checks whether item is in inventory/array
-                                                System.out.println(" - Go investigate the lounge!"); //prints guide text
+                                            if (mainChar.containsItemName("Bounty") || mainChar.containsItemName("Bounty (u)")) { //checks whether item is in inventory/array
+                                                System.out.println(" - Mild Bill awaits in the Wild West Mineshaft...");//prints guide text
                                             } else {
-                                                System.out.println(" - Mild Bill awaits in the Wild West...");//prints guide text
+                                                System.out.println(" - Go investigate the Wild West Saloon!"); //prints guide text
                                             }
                                         } else if (mainChar.containsItemName("JA")) { //checks whether item is inventory/array
                                             System.out.println(sibling.getName() + npcBedroom());
-                                            if (!mainChar.containsItemName("ID Card")) { //checks whether item is in inventory/array
-                                                System.out.println(" - Go investigate the bedroom!"); //prints guide text
+                                            if (mainChar.containsItemName("ID Card") || mainChar.containsItemName("ID Card (u)")) { //checks whether item is in inventory/array
+                                                System.out.println(" - Neil Legstrong awaits in Space Control Room..."); //prints guide text
                                             } else {
-                                                System.out.println(" - Neil Legstrong awaits in Space..."); //prints guide text
+                                                System.out.println(" - Go investigate the Space Cargo Hold!"); //prints guide text
                                             }
                                         } else if (!mainChar.containsItemName("JA")) { //checks whether item is not in inventory/array
                                             System.out.println(sibling.getName() + npcKitchen());
-                                            if (!mainChar.containsItemName("Silver Sword")) { //checks whether item is in inventory/array
-                                                System.out.println(" - Go investigate the kitchen!"); //prints guide text
+                                            if (mainChar.containsItemName("Silver Sword") || mainChar.containsItemName("Silver Sword (u)")) { //checks whether item is in inventory/array
+                                                System.out.println(" - Barathrum awaits in the Fantasy Mountain..."); //prints guide text
                                             } else {
-                                                System.out.println(" - Barathrum awaits in the Forest..."); //prints guide text
+                                                System.out.println(" - Go investigate the Fantasy Forest!"); //prints guide text
                                             }
                                         }
                                     } else if (trigger.equals("2")) {
@@ -426,17 +436,18 @@ public class MainGame {
                                     } else if (trigger.equals("3")) {
                                         System.out.println(sibling.getName() + ": There are three endings."); //prints guide text
                                     } else if (trigger.equals("4")) {
-                                        npcHelp = false;
+                                        npcHelp = false; //exits npc loop
                                     }
                                     System.out.println(pause());
                                     input.nextLine();
                                 }
                             } else if (trigger.equals("2")) { //menu selection to show inventory to get buffs
-                                boolean npcBuff = true;
-                                while (npcBuff) {
-                                    System.out.println(sibling.getName() + ": Find me some cool stuff and I'll grant you some power ups! \n Show her your inventory? \n 1 - yes \n 2 - no");
+                                boolean npcBuff = true; //boolean for npc buff loop
+                                while (npcBuff) { //loop for showing inventory items to npc for buffs
+                                    System.out.println(sibling.getName() + ": Find me some cool stuff and I'll grant " +
+                                            "you some power ups! \n Show her your inventory? \n 1 - yes \n 2 - no"); //buff menu
                                     String invTrigger = input.nextLine();
-                                    if (invTrigger.equals("1")) {
+                                    if (invTrigger.equals("1")) { //stating yes to show inventory
                                         if (mainChar.containsItemName("Cylinder")) { //checks for item in player inventory
                                             int bonusHealth = mainChar.getDef() + 50; //integer for bonus def
                                             mainChar.setDef(bonusHealth); //method to set bonus def
@@ -462,16 +473,18 @@ public class MainGame {
                                             System.out.println("You show " + sibling.getName() + " the Silver Sword and she raises your attack to " + bonusAtk);
                                             mainChar.returnItemName("Silver Sword").setItemNameDesc("Silver Sword (u)", "Bigger sword, silver in colour, +50 atk");
                                         }
-                                        npcBuff = false;
-                                    } else if (invTrigger.equals("2")) {
-                                        npcBuff = false;
+                                        npcBuff = false; //exits npc buff loop
+                                    } else if (invTrigger.equals("2")) { //stating no to showing inventory
+                                        npcBuff = false; //exits npc buff loop
                                     }
+                                    System.out.println(pause());
+                                    input.nextLine();
                                 }
-                            } else if (trigger.equals("3")) {
-                                npcLock = false;
+                            } else if (trigger.equals("3")) { //option to exit npc interaction loop
+                                npcLock = false; //boolean changed to exit npc interaction loop
                             }
                         }
-                    } else {
+                    } else { //if not on tile 2,2 npc interaction won't play
                         System.out.println("You are too far away from " + sibling.getName() + " to hear her.");
                         System.out.println(pause());
                         input.nextLine();
@@ -479,8 +492,8 @@ public class MainGame {
                 }
                 case "4" -> {
                     if (grid.checkXY(2, 2)) { //method to check grid location is 2,2
-                        boolean charmLock = true;
-                        while (charmLock) {
+                        boolean charmLock = true; //boolean for lucky charm loop
+                        while (charmLock) { //while loop for lucky charm interaction
                             if (!mainChar.containsItemName("Lucky Charm")) { //checks if item is in player inventory/arraylist
                                 System.out.println("You found a lucky charm on the floor, would you like to pick it up? \n 1 - yes \n 2 - no");
                                 String trigger;
@@ -488,10 +501,10 @@ public class MainGame {
                                 if (trigger.equals("1")) {
                                     mainChar.addItem(item); //adds item to inventory
                                     System.out.println("You pick up the charm.");
-                                    charmLock = false;
+                                    charmLock = false; //changes charmLock to exit lucky charm loop
                                 } else if (trigger.equals("2")) {
                                     System.out.println("You leave the charm on the floor.");
-                                    charmLock = false;
+                                    charmLock = false; //changes charmLock to exit lucky charm loop
                                 }
                                 System.out.println(pause());
                                 input.nextLine();
@@ -499,48 +512,56 @@ public class MainGame {
                         }
                     }
                 }
-                case "0" -> {
-                    if (grid.checkXY(2, 2)) { //method to check grid location is 2,2
-                        boolean mobLock = true;
-                        System.out.println("Welcome to mob creator. \n\nEnemy Name:");
+                case "createmob" -> { //method for post endgame, allows mob creation, experimental
+                    if (grid.checkXY(2, 2) && mainChar.containsItemName("The True Ending!")) { //method to check grid location is 2,2
+                        System.out.println("Welcome to mob creator. This is entirely experimental and may break the game!" +
+                                "\n\nEnemy Name:");
                         String mobName = input.nextLine();
-                        System.out.println("Intro Flavour Text:");
+                        System.out.println("Intro Flavour Text (string):");
                         String intro = input.nextLine();
-                        System.out.println("Outro Flavour Text:");
+                        System.out.println("Outro Flavour Text (string):");
                         String outro = input.nextLine();
-                        System.out.println("HP:");
+                        System.out.println("HP (integer):");
                         int hp = Integer.parseInt(input.nextLine());
-                        System.out.println("Max HP:");
+                        System.out.println("Max HP (integer):");
                         int maxHp = Integer.parseInt(input.nextLine());
-                        System.out.println("Atk:");
+                        System.out.println("Atk (integer):");
                         int atk = Integer.parseInt(input.nextLine());
-                        System.out.println("X Coordinate:");
+                        System.out.println("X Coordinate (integer 0-4):");
                         int x = Integer.parseInt(input.nextLine());
-                        System.out.println("Y Coordinate:");
+                        System.out.println("Y Coordinate (integer 0-4):");
                         int y = Integer.parseInt(input.nextLine());
                         mobCreate(mobName, intro, outro, hp, maxHp, atk, x, y, grid);
-                        System.out.println("Item Creator\n Item Name:");
+                        System.out.println("Item Creator\n Item Name (string):");
                         String itemName = input.nextLine();
-                        System.out.println("Item Desc:");
+                        System.out.println("Item Desc (string):");
                         String itemDesc = input.nextLine();
                         int enemyNum = grid.getGridName(x,y).numEnemy() - 1;
                         itemCreate(itemName, itemDesc, x, y, enemyNum, grid);
                     }
                 }
-                case "take damage" -> {
-                    mainChar.takeDamage(500);
-                    System.out.println("You took 500 damage! \n" + mainChar.getHpStat() + "\n" + pause());
-                    input.nextLine();
-                }
-                case "cheathp" -> {
-                    mainChar.setAtk(10000);
-                    mainChar.setHp(100000);
-                    mainChar.addItem(grid.getGridName(1, 0).getEnemy().getItem());
-                    mainChar.addItem(grid.getGridName(1, 4).getEnemy().getItem());
-                    mainChar.addItem(grid.getGridName(3, 4).getEnemy().getItem());
-                    mainChar.addItem(grid.getGridName(3, 0).getEnemy().getItem());
+                case "playercheats" -> { //allows cheats to be chosen for player post endgame
+                    if (grid.checkXY(2, 2) && mainChar.containsItemName("The True Ending!")) { //method to check grid location is 2,2
+                        System.out.println("HP (integer):");
+                        int hp = Integer.parseInt(input.nextLine());
+                        System.out.println("Max HP (integer):");
+                        int maxHp = Integer.parseInt(input.nextLine());
+                        System.out.println("Atk (integer):");
+                        int atk = Integer.parseInt(input.nextLine());
+                        System.out.println("Def (integer):");
+                        int def = Integer.parseInt(input.nextLine());
+                        mainChar.setAtk(atk);
+                        mainChar.setMaxHp(maxHp);
+                        mainChar.setHp(hp);
+                        mainChar.setDef(def);
+                        mainChar.addItem(grid.getGridName(1, 0).getEnemy().getItem());
+                        mainChar.addItem(grid.getGridName(1, 4).getEnemy().getItem());
+                        mainChar.addItem(grid.getGridName(3, 4).getEnemy().getItem());
+                        mainChar.addItem(grid.getGridName(3, 0).getEnemy().getItem());
+                    }
                 }
                 case "cheat" -> {
+                    mainChar.setAtk(99999);
                     mainChar.addItem(grid.getGridName(1, 0).getEnemy().getItem());
                     mainChar.addItem(grid.getGridName(1, 4).getEnemy().getItem());
                     mainChar.addItem(grid.getGridName(3, 4).getEnemy().getItem());
@@ -853,9 +874,9 @@ public class MainGame {
                 "\n 3 - How many endings are there? \n 4 - Go back.";
     }
 
-    static String mainCharDeath() {
-        return "You died. Talk to your sister and see if you can power up! \n 1 - Restart from last checkpoint? " +
-                "\n 2 - End Game";
+    static void mainCharDeath() {
+        System.out.println("You died. Talk to your sister and see if you can power up! \n 1 - Respawn from last checkpoint? " +
+                "\n 2 - End Game");
     }
 }
 
