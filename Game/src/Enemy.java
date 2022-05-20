@@ -20,6 +20,12 @@ public class Enemy {
         this.atk = atk;
     }
 
+    public Enemy(int hp, int maxHp, int atk) {
+        this.hp = hp;
+        this.maxHp = maxHp;
+        this.atk = atk;
+    }
+
     //start of item array
     ArrayList<Itemcreate> itemArrayList = new ArrayList<Itemcreate>(); //array for enemy mobs
 

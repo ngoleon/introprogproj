@@ -31,7 +31,7 @@ public class Grid {
 
 
     //Grid movement
-    public void left() {
+    public void moveWest() {
         if (x == 2 && y == 0) {
         } else if (x == 2 && y == 1) { //movement constraints
         } else if (x == 2 && y == 3) {
@@ -45,7 +45,7 @@ public class Grid {
         }
     }
 
-    public void right() {
+    public void moveEast() {
         if (x == 2 && y == 0) {
         } else if (x == 2 && y == 1) { //movement constraints
         } else if (x == 2 && y == 3) {
@@ -59,7 +59,7 @@ public class Grid {
         }
     }
 
-    public void up() {
+    public void moveNorth() {
         if (x == 1 && y == 2) {
         } else if (x == 3 && y == 2) { //movement constraints
         } else if (x == 1 && y == 4) {
@@ -69,7 +69,7 @@ public class Grid {
         }
     }
 
-    public void down() {
+    public void moveSouth() {
         if (x == 1 && y == 2) {
         } else if (x == 3 && y == 2) { //movement constraints
         } else if (x == 1 && y == 0) {

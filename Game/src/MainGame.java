@@ -3,7 +3,6 @@ import java.lang.Math;
 import java.util.concurrent.TimeUnit;
 
 
-
 public class MainGame {
 
     static void locationCreate(String locationName, String locationDesc, int x, int y, Grid grid) { //method to create locations by setting parameters,
@@ -39,7 +38,7 @@ public class MainGame {
         Player mainChar = new Player(name, 250, 250, 10, 10);
 
 
-        System.out.println("What is your sibling's name: ");
+        System.out.println("What is your sister's name: ");
         String siblingName = input.nextLine();
         System.out.println();
         Sibling sibling = new Sibling(siblingName);
@@ -136,11 +135,15 @@ public class MainGame {
                     } else if (trigger.equals("2")) { //if String trigger input is "no"
                         System.out.println("You follow your instincts and retreat."); //print statement and return
                     }
+
+
                 } else if (mainChar.containsItemName("JA") || mainChar.containsItemName("VA") || //checks for whether
                         mainChar.containsItemName("MA") || mainChar.containsItemName("N!")) {//some items are contained in inventory
                     System.out.println("You feel a slight warmth in your pockets from the shapes. " +
                             "You hear your sister's voice echo across the corridor, \"four pieces are needed to unlock the backdoor!\"\n"); //print statement for when some items are present in inventory
-                } else if (!mainChar.containsItemName("Back Door Key")) { //if no items are present in inventory
+                }
+
+                else if (!mainChar.containsItemName("Back Door Key")) { //if no items are present in inventory
                     int i = 0; //counter for door breaking
                     System.out.println("\n You try to open the door to the backyard and find that it won’t budge. " +
                             "Upon closer inspection you see four shapes emblazoned on the door. What are they used for?\n"); //print statement for when no relevant items are in inventory
@@ -185,6 +188,7 @@ public class MainGame {
                         }
                     }
                 }
+
                 if (!lock) { //if lock boolean is false
                     mobCreate("Javaman", javamanEncounter(), javamanDeath(), 10000, 10000, 200, 2, 0, grid); //creates javaman boss mob, stores name, intro, outro and other variables
                     itemCreate("The True Ending!", "Niiiiice", 2, 0, 0, grid); //creates item called "Nice." for mob on coordinates 2,0 (javaman)
@@ -228,7 +232,7 @@ public class MainGame {
                             TimeUnit.MILLISECONDS.sleep(500); //pause between lines
                         }
                         case "2" -> {//"strong attack" from menu selection
-                            int strongAttack = 0;
+                            int strongAttack;
                             if (!mainChar.containsItemName("Lucky Charm")) {
                                 strongAttack = (int) (Math.random() * (2 - 1 + 1) + 1); //utilises random to give a 50% chance of rolling double damage (max - min + 1) + min
                             } else {
@@ -258,6 +262,7 @@ public class MainGame {
                             TimeUnit.MILLISECONDS.sleep(500); //pauses between lines
                         }
                     }
+
                     if (!opponent.isAlive()) { //if statement that calls method that returns boolean for whether enemy is dead
                         System.out.println(opponent.getOutro()); //prints out a method that returns enemy outro message
                         System.out.println(pause()); //prints out pause text method
@@ -336,32 +341,35 @@ public class MainGame {
             command = String.valueOf(input.nextLine()); //variable for menu switch statement
 
             switch (command) {
-
+                //movement commands start
                 case "w" -> {
-                    grid.up();
+                    grid.moveNorth();
                     System.out.println();
                 } //moves up in the grid
 
                 case "s" -> {
-                    grid.down();
+                    grid.moveSouth();
                     System.out.println();
                 } //moves down in the grid
 
                 case "a" -> {
-                    grid.left();
+                    grid.moveWest();
                     System.out.println();
                 } //moves left in the grid
 
                 case "d" -> {
-                    grid.right();
+                    grid.moveEast();
                     System.out.println();
                 } //moves right in the grid
-                case "1" -> {
+                //movement commands end
+
+                //menu selection options start
+                case "1" -> { //shows player stats
                     System.out.println(mainChar.getName() + "\n\n" + "Your Stats: " + "\n" + mainChar.getHpStat() + "\n" + mainChar.getAtkStat() + "\n");
                     System.out.println(pause());
                     input.nextLine();
-                } //returns player stats
-                case "2" -> {
+                }
+                case "2" -> { //inventory system
                     input = new Scanner(System.in);
                     boolean invLock = true;
                     while (invLock) {
@@ -385,103 +393,112 @@ public class MainGame {
                             invLock = false; //breaks the inventory loop
                         }
                     }
-                } //inventory system
-                case "3" -> {
+                }
+                case "3" -> { //npc interaction
                     if (grid.checkXY(2, 2)) { //checks player grid location is 2,2
                         boolean npcLock = true; //boolean for while loop
                         while (npcLock) { //loop for npc interaction
                             System.out.println(sibling.getName() + ": Hey " + mainChar.getName() + npcMenu()); //prints out npc interaction menu
                             String trigger = input.nextLine(); //stores String trigger for if statements/menu selection
-                            if (trigger.equals("1")) { //if option 1 (help) is selected
-                                boolean npcHelp = true;
-                                while (npcHelp) { //starts help loop
-                                    System.out.println(sibling.getName() + npcHelp());//prints out npc help interaction menu
-                                    trigger = input.nextLine();
-                                    if (trigger.equals("1")) {
-                                        if (mainChar.containsItemName("JA") && mainChar.containsItemName("VA") &&
-                                                mainChar.containsItemName("MA") && mainChar.containsItemName("N!")) { //checks whether items are in inventory/array
-                                            System.out.println(sibling.getName() + npcJavaman());
-                                        } else if (mainChar.containsItemName("JA") && mainChar.containsItemName("VA")
-                                                && mainChar.containsItemName("MA")) { //checks whether items are in inventory/array
-                                            System.out.println(sibling.getName() + npcBathroom()); //prints out npc guide text
-                                            if (mainChar.containsItemName("Cylinder") || mainChar.containsItemName("Cylinder (u)")) { //checks whether item is in inventory/array
-                                                System.out.println(" - Cyber Bill awaits in the Remix Plateau...");
-                                            } else {
-                                                System.out.println(" - Go investigate the Remix Nest!");
-                                            }
-                                        } else if (mainChar.containsItemName("JA") && mainChar.containsItemName("VA")) { //checks whether items are in inventory/array
-                                            System.out.println(sibling.getName() + npcLounge());
-                                            if (mainChar.containsItemName("Bounty") || mainChar.containsItemName("Bounty (u)")) { //checks whether item is in inventory/array
-                                                System.out.println(" - Mild Bill awaits in the Wild West Mineshaft...");//prints guide text
-                                            } else {
-                                                System.out.println(" - Go investigate the Wild West Saloon!"); //prints guide text
-                                            }
-                                        } else if (mainChar.containsItemName("JA")) { //checks whether item is inventory/array
-                                            System.out.println(sibling.getName() + npcBedroom());
-                                            if (mainChar.containsItemName("ID Card") || mainChar.containsItemName("ID Card (u)")) { //checks whether item is in inventory/array
-                                                System.out.println(" - Neil Legstrong awaits in Space Control Room..."); //prints guide text
-                                            } else {
-                                                System.out.println(" - Go investigate the Space Cargo Hold!"); //prints guide text
-                                            }
-                                        } else if (!mainChar.containsItemName("JA")) { //checks whether item is not in inventory/array
-                                            System.out.println(sibling.getName() + npcKitchen());
-                                            if (mainChar.containsItemName("Silver Sword") || mainChar.containsItemName("Silver Sword (u)")) { //checks whether item is in inventory/array
-                                                System.out.println(" - Barathrum awaits in the Fantasy Mountain..."); //prints guide text
-                                            } else {
-                                                System.out.println(" - Go investigate the Fantasy Forest!"); //prints guide text
-                                            }
+                            switch (trigger) {
+                                case "1" -> {//if option 1 (help) is selected
+                                    boolean npcHelp = true;
+                                    while (npcHelp) { //starts help loop
+                                        System.out.println(sibling.getName() + npcHelp());//prints out npc help interaction menu
+                                        trigger = input.nextLine(); //player input for npc help interaction menu selection
+                                        switch (trigger) {
+                                            case "1": //npc guide text selection
+                                                if (mainChar.containsItemName("JA") && mainChar.containsItemName("VA") &&
+                                                        mainChar.containsItemName("MA") && mainChar.containsItemName("N!")) { //checks whether items are in inventory/array
+                                                    System.out.println(sibling.getName() + npcJavaman());
+                                                } else if (mainChar.containsItemName("JA") && mainChar.containsItemName("VA")
+                                                        && mainChar.containsItemName("MA")) { //checks whether items are in inventory/array
+                                                    System.out.println(sibling.getName() + npcBathroom()); //prints out npc guide text
+                                                    if (mainChar.containsItemName("Cylinder") || mainChar.containsItemName("Cylinder (u)")) { //checks whether item is in inventory/array
+                                                        System.out.println(" - Cyber Bill awaits in the Remix Plateau...");
+                                                    } else {
+                                                        System.out.println(" - Go investigate the Remix Nest!");
+                                                    }
+                                                } else if (mainChar.containsItemName("JA") && mainChar.containsItemName("VA")) { //checks whether items are in inventory/array
+                                                    System.out.println(sibling.getName() + npcLounge());
+                                                    if (mainChar.containsItemName("Bounty") || mainChar.containsItemName("Bounty (u)")) { //checks whether item is in inventory/array
+                                                        System.out.println(" - Mild Bill awaits in the Wild West Mineshaft...");//prints guide text
+                                                    } else {
+                                                        System.out.println(" - Go investigate the Wild West Saloon!"); //prints guide text
+                                                    }
+                                                } else if (mainChar.containsItemName("JA")) { //checks whether item is inventory/array
+                                                    System.out.println(sibling.getName() + npcBedroom());
+                                                    if (mainChar.containsItemName("ID Card") || mainChar.containsItemName("ID Card (u)")) { //checks whether item is in inventory/array
+                                                        System.out.println(" - Neil Legstrong awaits in Space Control Room..."); //prints guide text
+                                                    } else {
+                                                        System.out.println(" - Go investigate the Space Cargo Hold!"); //prints guide text
+                                                    }
+                                                } else if (!mainChar.containsItemName("JA")) { //checks whether item is not in inventory/array
+                                                    System.out.println(sibling.getName() + npcKitchen());
+                                                    if (mainChar.containsItemName("Silver Sword") || mainChar.containsItemName("Silver Sword (u)")) { //checks whether item is in inventory/array
+                                                        System.out.println(" - Barathrum awaits in the Fantasy Mountain..."); //prints guide text
+                                                    } else {
+                                                        System.out.println(" - Go investigate the Fantasy Forest!"); //prints guide text
+                                                    }
+                                                }
+                                                break;
+                                            case "2": //where is healing selection
+                                                System.out.println(sibling.getName() + ": Head to the front door!"); //prints guide text
+
+                                                break;
+                                            case "3": //how many endings selection
+                                                System.out.println(sibling.getName() + ": There are three endings."); //prints guide text
+
+                                                break;
+                                            case "4": //exiting chat with npc
+                                                npcHelp = false; //exits npc loop
+                                                break;
                                         }
-                                    } else if (trigger.equals("2")) {
-                                        System.out.println(sibling.getName() + ": Head to the front door!"); //prints guide text
-                                    } else if (trigger.equals("3")) {
-                                        System.out.println(sibling.getName() + ": There are three endings."); //prints guide text
-                                    } else if (trigger.equals("4")) {
-                                        npcHelp = false; //exits npc loop
+                                        System.out.println(pause());
+                                        input.nextLine();
                                     }
-                                    System.out.println(pause());
-                                    input.nextLine();
                                 }
-                            } else if (trigger.equals("2")) { //menu selection to show inventory to get buffs
-                                boolean npcBuff = true; //boolean for npc buff loop
-                                while (npcBuff) { //loop for showing inventory items to npc for buffs
-                                    System.out.println(sibling.getName() + ": Find me some cool stuff and I'll grant " +
-                                            "you some power ups! \n Show her your inventory? \n 1 - yes \n 2 - no"); //buff menu
-                                    String invTrigger = input.nextLine();
-                                    if (invTrigger.equals("1")) { //stating yes to show inventory
-                                        if (mainChar.containsItemName("Cylinder")) { //checks for item in player inventory
-                                            int bonusHealth = mainChar.getDef() + 50; //integer for bonus def
-                                            mainChar.setDef(bonusHealth); //method to set bonus def
-                                            System.out.println("You show " + sibling.getName() + " the Cylinder and she raises your def to " + bonusHealth);
-                                            mainChar.returnItemName("Cylinder").setItemNameDesc("Cylinder (u)", "Attack cylinder...?, +50 atk");
+                                case "2" -> {//menu selection to show inventory to get buffs
+                                    boolean npcBuff = true; //boolean for npc buff loop
+                                    while (npcBuff) { //loop for showing inventory items to npc for buffs
+                                        System.out.println(sibling.getName() + ": Find me some cool stuff and I'll grant " +
+                                                "you some power ups! \n Show her your inventory? \n 1 - yes \n 2 - no"); //buff menu
+                                        String invTrigger = input.nextLine();
+                                        if (invTrigger.equals("1")) { //stating yes to show inventory
+                                            if (mainChar.containsItemName("Cylinder")) { //checks for item in player inventory
+                                                int bonusHealth = mainChar.getDef() + 50; //integer for bonus def
+                                                mainChar.setDef(bonusHealth); //method to set bonus def
+                                                System.out.println("You show " + sibling.getName() + " the Cylinder and she raises your def to " + bonusHealth);
+                                                mainChar.returnItemName("Cylinder").setItemNameDesc("Cylinder (u)", "Attack cylinder...?, +50 atk");
+                                            }
+                                            if (mainChar.containsItemName("ID Card")) { //checks for item in player inventory
+                                                int bonusAtk = mainChar.getAtk() + 50; //integer for bonus atk
+                                                mainChar.setAtk(bonusAtk); //method to set bonus atk
+                                                System.out.println("You show " + sibling.getName() + " the ID Card and she raises your attack to " + bonusAtk);
+                                                mainChar.returnItemName("ID Card").setItemNameDesc("ID Card (u)", "Not just an ID Card, +50 atk");
+                                            }
+                                            if (mainChar.containsItemName("Bounty")) { //checks for item in player inventory
+                                                int bonusHealth = mainChar.getMaxHp() + 500; //integer for bonus health
+                                                mainChar.setMaxHp(bonusHealth); //method to set max hp
+                                                mainChar.setHp(bonusHealth); //method to set hp to max
+                                                System.out.println("You show " + sibling.getName() + " the Bounty and she raises your health to " + bonusHealth);
+                                                mainChar.returnItemName("Bounty").setItemNameDesc("Bounty (u)", "A healthy Bounty for Mild Bill, +500 hp");
+                                            }
+                                            if (mainChar.containsItemName("Silver Sword")) { //checks for item in player inventory
+                                                int bonusAtk = mainChar.getAtk() + 50; //integer for bonus atk
+                                                mainChar.setAtk(bonusAtk); //method to set bonus atk
+                                                System.out.println("You show " + sibling.getName() + " the Silver Sword and she raises your attack to " + bonusAtk);
+                                                mainChar.returnItemName("Silver Sword").setItemNameDesc("Silver Sword (u)", "Bigger sword, silver in colour, +50 atk");
+                                            }
+                                            npcBuff = false; //exits npc buff loop
+                                        } else if (invTrigger.equals("2")) { //stating no to showing inventory
+                                            npcBuff = false; //exits npc buff loop
                                         }
-                                        if (mainChar.containsItemName("ID Card")) { //checks for item in player inventory
-                                            int bonusAtk = mainChar.getAtk() + 50; //integer for bonus atk
-                                            mainChar.setAtk(bonusAtk); //method to set bonus atk
-                                            System.out.println("You show " + sibling.getName() + " the ID Card and she raises your attack to " + bonusAtk);
-                                            mainChar.returnItemName("ID Card").setItemNameDesc("ID Card (u)", "Not just an ID Card, +50 atk");
-                                        }
-                                        if (mainChar.containsItemName("Bounty")) { //checks for item in player inventory
-                                            int bonusHealth = mainChar.getMaxHp() + 500; //integer for bonus health
-                                            mainChar.setMaxHp(bonusHealth); //method to set max hp
-                                            mainChar.setHp(bonusHealth); //method to set hp to max
-                                            System.out.println("You show " + sibling.getName() + " the Bounty and she raises your health to " + bonusHealth);
-                                            mainChar.returnItemName("Bounty").setItemNameDesc("Bounty (u)", "A healthy Bounty for Mild Bill, +500 hp");
-                                        }
-                                        if (mainChar.containsItemName("Silver Sword")) { //checks for item in player inventory
-                                            int bonusAtk = mainChar.getAtk() + 50; //integer for bonus atk
-                                            mainChar.setAtk(bonusAtk); //method to set bonus atk
-                                            System.out.println("You show " + sibling.getName() + " the Silver Sword and she raises your attack to " + bonusAtk);
-                                            mainChar.returnItemName("Silver Sword").setItemNameDesc("Silver Sword (u)", "Bigger sword, silver in colour, +50 atk");
-                                        }
-                                        npcBuff = false; //exits npc buff loop
-                                    } else if (invTrigger.equals("2")) { //stating no to showing inventory
-                                        npcBuff = false; //exits npc buff loop
+                                        System.out.println(pause());
+                                        input.nextLine();
                                     }
-                                    System.out.println(pause());
-                                    input.nextLine();
                                 }
-                            } else if (trigger.equals("3")) { //option to exit npc interaction loop
-                                npcLock = false; //boolean changed to exit npc interaction loop
+                                case "3" -> npcLock = false; //boolean changed to exit npc interaction loop
                             }
                         }
                     } else { //if not on tile 2,2 npc interaction won't play
@@ -490,7 +507,7 @@ public class MainGame {
                         input.nextLine();
                     }
                 }
-                case "4" -> {
+                case "4" -> { //lucky charm selection
                     if (grid.checkXY(2, 2)) { //method to check grid location is 2,2
                         boolean charmLock = true; //boolean for lucky charm loop
                         while (charmLock) { //while loop for lucky charm interaction
@@ -554,19 +571,16 @@ public class MainGame {
                         mainChar.setMaxHp(maxHp);
                         mainChar.setHp(hp);
                         mainChar.setDef(def);
-                        mainChar.addItem(grid.getGridName(1, 0).getEnemy().getItem());
-                        mainChar.addItem(grid.getGridName(1, 4).getEnemy().getItem());
-                        mainChar.addItem(grid.getGridName(3, 4).getEnemy().getItem());
-                        mainChar.addItem(grid.getGridName(3, 0).getEnemy().getItem());
                     }
                 }
-                case "cheat" -> {
+                case "debugcheat" -> {
                     mainChar.setAtk(99999);
                     mainChar.addItem(grid.getGridName(1, 0).getEnemy().getItem());
                     mainChar.addItem(grid.getGridName(1, 4).getEnemy().getItem());
                     mainChar.addItem(grid.getGridName(3, 4).getEnemy().getItem());
                     mainChar.addItem(grid.getGridName(3, 0).getEnemy().getItem());
                 }
+                //menu selection end
             }
         }
     }
